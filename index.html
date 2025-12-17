@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NyrexMc - VIPs Minecraft</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --blue-dark: #0a1931;
+            --blue-medium: #1a5f7a;
+            --blue-light: #1597bb;
+            --cyan-dark: #00b4d8;
+            --cyan-medium: #48cae4;
+            --cyan-light: #90e0ef;
+            --navy-dark: #0c2461;
+            --navy-medium: #1e3799;
+            --navy-light: #4a69bd;
+            --text-light: #F5F5F5;
+            --text-muted: #CCCCCC;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--blue-dark) 0%, #0a1931 50%, var(--navy-dark) 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Efeito de água/ondas sutil no fundo */
+        .water-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, 
+                rgba(21, 151, 187, 0.08) 0%, 
+                rgba(26, 95, 122, 0.05) 30%, 
+                rgba(0, 0, 0, 0) 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Cabeçalho */
+        header {
+            text-align: center;
+            padding: 25px 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 3.2rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--cyan-medium), var(--blue-light), var(--cyan-dark));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(72, 202, 228, 0.3);
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        /* Grid de produtos */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: linear-gradient(145deg, rgba(26, 95, 122, 0.15), rgba(10, 25, 49, 0.2));
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(72, 202, 228, 0.15);
+            backdrop-filter: blur(5px);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(72, 202, 228, 0.25);
+            border-color: rgba(72, 202, 228, 0.4);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 2px solid rgba(72, 202, 228, 0.2);
+        }
+
+        .product-info {
+            padding: 18px;
+        }
+
+        .product-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--cyan-light);
+        }
+
+        .product-price {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--cyan-medium);
+            margin-bottom: 18px;
+            text-shadow: 0 0 8px rgba(72, 202, 228, 0.3);
+        }
+
+        /* Botão de compra com animação inspirada em água */
+        .buy-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, var(--blue-medium), var(--cyan-dark));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(26, 95, 122, 0.4);
+        }
+
+        .buy-btn:hover {
+            background: linear-gradient(to right, var(--blue-light), var(--cyan-medium));
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(72, 202, 228, 0.5);
+        }
+
+        .buy-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Efeito de brilho no botão */
+        .buy-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 20%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(30deg);
+            transition: all 0.5s ease;
+        }
+
+        .buy-btn:hover::after {
+            left: 150%;
+        }
+
+        /* Overlay e modais */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 25, 49, 0.92);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal {
+            background: linear-gradient(145deg, rgba(26, 95, 122, 0.25), rgba(10, 25, 49, 0.3));
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(72, 202, 228, 0.2);
+            position: relative;
+            animation: modalAppear 0.4s ease;
+            backdrop-filter: blur(10px);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalAppear {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(72, 202, 228, 0.2);
+        }
+
+        .modal-title {
+            font-size: 1.6rem;
+            color: var(--cyan-light);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-btn:hover {
+            color: var(--cyan-light);
+            background-color: rgba(72, 202, 228, 0.1);
+        }
+
+        /* Formulário */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(26, 95, 122, 0.15);
+            border: 1px solid rgba(72, 202, 228, 0.2);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--cyan-medium);
+            box-shadow: 0 0 10px rgba(72, 202, 228, 0.2);
+        }
+
+        /* Informações do produto selecionado */
+        .selected-product-info {
+            background-color: rgba(26, 95, 122, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--cyan-medium);
+        }
+
+        .selected-product-title {
+            color: var(--cyan-light);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .selected-product-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .selected-product-price {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--cyan-medium);
+            margin-top: 5px;
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            margin: 20px 0;
+            padding: 12px;
+            background-color: rgba(26, 95, 122, 0.15);
+            border-radius: 8px;
+            border-left: 4px solid var(--blue-medium);
+        }
+
+        .checkbox-input {
+            margin-right: 10px;
+            margin-top: 3px;
+            transform: scale(1.2);
+            accent-color: var(--cyan-medium);
+        }
+
+        .checkbox-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .checkbox-label a {
+            color: var(--cyan-light);
+            text-decoration: none;
+        }
+
+        .checkbox-label a:hover {
+            text-decoration: underline;
+        }
+
+        /* Botão continuar */
+        .continue-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, var(--cyan-dark), var(--cyan-medium));
+            color: #0a1931;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(72, 202, 228, 0.3);
+        }
+
+        .continue-btn:disabled {
+            background: linear-gradient(to right, #2d3748, #4a5568);
+            color: #a0aec0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .continue-btn:not(:disabled):hover {
+            background: linear-gradient(to right, var(--cyan-medium), var(--cyan-light));
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(72, 202, 228, 0.4);
+        }
+
+        /* Tela de pagamento */
+        .payment-section {
+            text-align: center;
+        }
+
+        .payment-title {
+            font-size: 1.6rem;
+            color: var(--cyan-medium);
+            margin-bottom: 10px;
+        }
+
+        .payment-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .pix-key-container {
+            background-color: rgba(26, 95, 122, 0.2);
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            text-align: left;
+        }
+
+        .pix-label {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .pix-key {
+            background-color: rgba(10, 25, 49, 0.5);
+            padding: 14px;
+            border-radius: 8px;
+            font-family: monospace;
+            word-break: break-all;
+            margin-bottom: 15px;
+            border: 1px solid rgba(0, 180, 216, 0.15);
+            color: #90e0ef;
+            font-size: 0.9rem;
+            max-height: 80px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            background: linear-gradient(to right, var(--blue-medium), var(--cyan-dark));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .copy-btn:hover {
+            background: linear-gradient(to right, var(--blue-light), var(--cyan-medium));
+            transform: scale(1.05);
+        }
+
+        .qr-code-container {
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .qr-code {
+            max-width: 220px;
+            border-radius: 10px;
+            border: 2px solid rgba(72, 202, 228, 0.2);
+            margin: 0 auto 12px;
+            display: block;
+            background-color: white;
+            padding: 8px;
+        }
+
+        .qr-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Timer de bloqueio */
+        .timer-container {
+            background-color: rgba(26, 95, 122, 0.2);
+            border-radius: 10px;
+            padding: 18px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px solid rgba(72, 202, 228, 0.2);
+        }
+
+        .timer-title {
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .timer {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--cyan-light);
+            font-family: monospace;
+            text-shadow: 0 0 10px rgba(72, 202, 228, 0.5);
+            margin-bottom: 8px;
+        }
+
+        .timer-message {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Tela de código final - COMPACTADA */
+        .code-section {
+            text-align: center;
+            padding: 0 5px;
+        }
+
+        .code-title {
+            font-size: 1.6rem;
+            color: var(--cyan-medium);
+            margin-bottom: 15px;
+        }
+
+        .generated-code {
+            background: linear-gradient(to right, var(--blue-medium), var(--cyan-dark));
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            font-family: monospace;
+            letter-spacing: 1px;
+            margin: 20px 0;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--cyan-medium);
+            color: white;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+            word-break: break-word;
+            line-height: 1.4;
+        }
+
+        .instructions {
+            background-color: rgba(26, 95, 122, 0.2);
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 20px;
+            border-left: 4px solid var(--cyan-medium);
+            text-align: left;
+        }
+
+        .instructions-title {
+            color: var(--cyan-light);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .instructions-text {
+            color: var(--text-muted);
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        /* Botão finalizar compra */
+        .finish-btn-container {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(72, 202, 228, 0.1);
+        }
+
+        .finish-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, var(--cyan-medium), var(--cyan-light));
+            color: #0a1931;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(72, 202, 228, 0.3);
+        }
+
+        .finish-btn:hover {
+            background: linear-gradient(to right, var(--cyan-light), #caf0f8);
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(72, 202, 228, 0.4);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .logo {
+                font-size: 2.3rem;
+            }
+            
+            .modal {
+                width: 95%;
+                padding: 20px;
+                max-height: 90vh;
+            }
+            
+            .generated-code {
+                font-size: 1.2rem;
+                padding: 15px;
+            }
+            
+            .modal-title {
+                font-size: 1.4rem;
+            }
+            
+            .timer {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .timer {
+                font-size: 1.6rem;
+            }
+            
+            .modal {
+                padding: 15px;
+            }
+            
+            .product-name {
+                font-size: 1.3rem;
+            }
+            
+            .product-price {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(10, 25, 49, 0.5);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--cyan-dark);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--cyan-medium);
+        }
+    </style>
+</head>
+<body>
+    <!-- Efeito de água no fundo -->
+    <div class="water-effect"></div>
+    
+    <div class="container">
+        <!-- Cabeçalho -->
+        <header>
+            <h1 class="logo">Nyrex MC</h1>
+            <p class="tagline">Melhor servidor bedrock!</p>
+        </header>
+        
+        <!-- Vitrine de produtos -->
+        <section class="products-section">
+            <h2 style="text-align: center; margin-bottom: 25px; color: var(--cyan-light); font-size: 1.8rem;">KITS DISPONÍVEIS</h2>
+            
+            <div class="products-grid" id="products-grid">
+                <!-- Produtos serão inseridos dinamicamente via JavaScript -->
+            </div>
+        </section>
+    </div>
+    
+    <!-- Overlay e modais -->
+    <div class="overlay" id="overlay">
+        <!-- Modal de dados do jogador -->
+        <div class="modal" id="player-data-modal" style="display: none;">
+            <div class="modal-header">
+                <h2 class="modal-title">Dados do Jogador</h2>
+                <button class="close-btn" id="close-player-data">&times;</button>
+            </div>
+            
+            <!-- Informações do produto selecionado -->
+            <div class="selected-product-info" id="selected-product-info" style="display: none;">
+                <div class="selected-product-title">Você está comprando:</div>
+                <div class="selected-product-name" id="selected-product-name"></div>
+                <div class="selected-product-price" id="selected-product-price"></div>
+            </div>
+            
+            <form id="player-data-form">
+                <div class="form-group">
+                    <label class="form-label" for="full-name">Nome Completo</label>
+                    <input type="text" id="full-name" class="form-input" placeholder="Digite seu nome completo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="player-nick">Nick do Jogo (Minecraft)</label>
+                    <input type="text" id="player-nick" class="form-input" placeholder="Digite seu nick no Minecraft" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="discord-nick">Nick do Discord</label>
+                    <input type="text" id="discord-nick" class="form-input" placeholder="Exemplo: usuario#1234" required>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms-checkbox" class="checkbox-input">
+                    <label class="checkbox-label" for="terms-checkbox">
+                        Ao selecionar está seção você fica de acordo que o reembolso é valido apenas abrindo ticket. (Reembolso valido até 3 horas após a compra)
+                    </label>
+                </div>
+                
+                <button type="submit" class="continue-btn" id="continue-to-payment" disabled>CONTINUAR</button>
+            </form>
+        </div>
+        
+        <!-- Modal de pagamento -->
+        <div class="modal" id="payment-modal" style="display: none;">
+            <div class="modal-header">
+                <h2 class="modal-title">Pagamento via PIX</h2>
+                <button class="close-btn" id="close-payment">&times;</button>
+            </div>
+            
+            <div class="payment-section">
+                <h3 class="payment-title">Finalize seu Pagamento</h3>
+                <p class="payment-subtitle">Use uma das opções abaixo para pagar com PIX</p>
+                
+                <div class="pix-key-container">
+                    <span class="pix-label">Chave PIX (copie e cole no seu app bancário):</span>
+                    <div class="pix-key" id="pix-key">
+                        00020101021126450014br.gov.bcb.pix0123cauavini.rodr@gmail.com5204000053039865802BR5921CAUA V DA S RODRIGUES6013EMBU DAS ARTE62070503***63046A74
+                    </div>
+                    <button class="copy-btn" id="copy-pix-key">
+                        <i class="fas fa-copy"></i> COPIAR CHAVE PIX
+                    </button>
+                </div>
+                
+                <div class="qr-code-container">
+                    <img src="https://i.postimg.cc/PqbV3cwQ/Captura-de-tela-2025-12-17-193931.png" alt="QR Code PIX" class="qr-code">
+                    <p class="qr-label">Escaneie este QR Code com seu app bancário</p>
+                </div>
+                
+                <div class="timer-container">
+                    <p class="timer-title">Aguarde para continuar:</p>
+                    <div class="timer" id="countdown-timer">06</div>
+                    <p class="timer-message">Por segurança, você precisa aguardar 6 segundos antes de continuar</p>
+                </div>
+                
+                <button class="continue-btn" id="continue-after-payment" disabled>CONTINUAR</button>
+            </div>
+        </div>
+        
+        <!-- Modal de código final - COMPACTADO -->
+        <div class="modal" id="final-code-modal" style="display: none;">
+            <div class="modal-header">
+                <h2 class="modal-title">Compra Realizada!</h2>
+                <button class="close-btn" id="close-final">&times;</button>
+            </div>
+            
+            <div class="code-section">
+                <h3 class="code-title">Seu Código de Confirmação</h3>
+                <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.95rem;">Guarde este código para validar sua compra:</p>
+                
+                <div class="generated-code" id="generated-code">
+                    <!-- Código será gerado dinamicamente -->
+                </div>
+                
+                <div class="instructions">
+                    <h4 class="instructions-title">Próximos Passos:</h4>
+                    <p class="instructions-text">
+                        Envie o print do comprovante e o codigo recebido na area de tickets do nosso discord!
+                    </p>
+                    <p class="instructions-text" style="margin-top: 10px; color: var(--cyan-light);">
+                        <strong>Nick informado:</strong> <span id="user-nick-display"></span>
+                    </p>
+                </div>
+                
+                <!-- BOTÃO FINALIZAR COMPRA ADICIONADO -->
+                <div class="finish-btn-container">
+                    <button class="finish-btn" id="finish-button">
+                        <i class="fas fa-check-circle"></i> FINALIZAR COMPRA
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Dados dos produtos
+        const products = [
+            {
+                name: "KIT CLAVA",
+                price: "15 R$",
+                image: "https://i.postimg.cc/26vF6Bzm/IMG-7774-1.jpg"
+            },
+            {
+                name: "KIT DUO",
+                price: "29,48 R$",
+                image: "https://i.postimg.cc/gk4ynpP9/image.png"
+            },
+            {
+                name: "KIT SPAWNER",
+                price: "7 R$",
+                image: "https://i.postimg.cc/RFzJgpzk/image.png"
+            },
+            {
+                name: "KIT IMORTAL",
+                price: "14,50 R$",
+                image: "https://i.postimg.cc/nzZM4svk/image.png"
+            },
+            {
+                name: "KIT COMPL.CLAN",
+                price: "10 R$",
+                image: "https://i.postimg.cc/tTxQ4DZH/image.png"
+            },
+            {
+                name: "KIT CLAN",
+                price: "17,50 R$",
+                image: "https://i.postimg.cc/43vpRRPD/image.png"
+            },
+            {
+                name: "KIT OP",
+                price: "13 R$",
+                image: "https://i.postimg.cc/CMRHdXx6/image.png"
+            }
+        ];
+        
+        // Variáveis globais
+        let selectedProduct = null;
+        let playerNick = "";
+        let countdownInterval = null;
+        let secondsRemaining = 6;
+        
+        // Padrões de token possíveis
+        const tokenPatterns = [
+            "TOK3N-COMPR4",
+            "COMPR4-TOK3N", 
+            "COMPR4-REALIZADA"
+        ];
+        
+        // Inicialização do site
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts();
+            setupEventListeners();
+        });
+        
+        // Renderizar produtos na vitrine
+        function renderProducts() {
+            const productsGrid = document.getElementById('products-grid');
+            productsGrid.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-price">${product.price}</div>
+                        <button class="buy-btn" data-product='${JSON.stringify(product)}'>
+                            COMPRAR
+                        </button>
+                    </div>
+                `;
+                
+                productsGrid.appendChild(productCard);
+            });
+        }
+        
+        // Configurar listeners de eventos
+        function setupEventListeners() {
+            // Botões de compra
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('buy-btn')) {
+                    const productData = JSON.parse(e.target.getAttribute('data-product'));
+                    openPlayerDataModal(productData);
+                }
+            });
+            
+            // Checkbox de termos
+            const termsCheckbox = document.getElementById('terms-checkbox');
+            const continueToPaymentBtn = document.getElementById('continue-to-payment');
+            
+            termsCheckbox.addEventListener('change', function() {
+                continueToPaymentBtn.disabled = !termsCheckbox.checked;
+            });
+            
+            // Formulário de dados do jogador
+            const playerDataForm = document.getElementById('player-data-form');
+            playerDataForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const fullName = document.getElementById('full-name').value.trim();
+                const gameNick = document.getElementById('player-nick').value.trim();
+                const discordNick = document.getElementById('discord-nick').value.trim();
+                
+                if (!fullName || !gameNick || !discordNick) {
+                    alert('Por favor, preencha todos os campos obrigatórios.');
+                    return;
+                }
+                
+                if (!termsCheckbox.checked) {
+                    alert('Você precisa aceitar os termos para continuar.');
+                    return;
+                }
+                
+                // Salvar o nick do jogo para usar na geração do token
+                playerNick = gameNick.replace(/\s+/g, '_').toUpperCase();
+                
+                openPaymentModal();
+            });
+            
+            // Botão para copiar chave PIX
+            const copyPixKeyBtn = document.getElementById('copy-pix-key');
+            copyPixKeyBtn.addEventListener('click', function() {
+                const pixKey = document.getElementById('pix-key').textContent;
+                
+                navigator.clipboard.writeText(pixKey).then(() => {
+                    // Feedback visual
+                    const originalText = copyPixKeyBtn.innerHTML;
+                    copyPixKeyBtn.innerHTML = '<i class="fas fa-check"></i> CHAVE COPIADA!';
+                    copyPixKeyBtn.style.background = 'linear-gradient(to right, var(--cyan-medium), var(--cyan-light))';
+                    
+                    setTimeout(() => {
+                        copyPixKeyBtn.innerHTML = originalText;
+                        copyPixKeyBtn.style.background = 'linear-gradient(to right, var(--blue-medium), var(--cyan-dark))';
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Erro ao copiar: ', err);
+                    alert('Não foi possível copiar a chave PIX. Copie manualmente.');
+                });
+            });
+            
+            // Botão continuar após pagamento (com timer)
+            const continueAfterPaymentBtn = document.getElementById('continue-after-payment');
+            continueAfterPaymentBtn.addEventListener('click', openFinalCodeModal);
+            
+            // Botões de fechar modais
+            document.getElementById('close-player-data').addEventListener('click', closeAllModals);
+            document.getElementById('close-payment').addEventListener('click', closeAllModals);
+            document.getElementById('close-final').addEventListener('click', closeAllModals);
+            
+            // Botão FINALIZAR COMPRA
+            document.getElementById('finish-button').addEventListener('click', function() {
+                closeAllModals();
+                alert('Obrigado por sua compra! Não se esqueça de enviar o comprovante e código no Discord.');
+            });
+            
+            // Fechar overlay ao clicar fora do modal
+            document.getElementById('overlay').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeAllModals();
+                }
+            });
+        }
+        
+        // Abrir modal de dados do jogador
+        function openPlayerDataModal(product) {
+            selectedProduct = product;
+            playerNick = "";
+            
+            // Mostrar informações do produto selecionado
+            document.getElementById('selected-product-info').style.display = 'block';
+            document.getElementById('selected-product-name').textContent = product.name;
+            document.getElementById('selected-product-price').textContent = product.price;
+            
+            // Resetar formulário
+            document.getElementById('full-name').value = '';
+            document.getElementById('player-nick').value = '';
+            document.getElementById('discord-nick').value = '';
+            document.getElementById('terms-checkbox').checked = false;
+            document.getElementById('continue-to-payment').disabled = true;
+            
+            // Mostrar modal
+            document.getElementById('overlay').style.display = 'flex';
+            document.getElementById('player-data-modal').style.display = 'block';
+            document.getElementById('payment-modal').style.display = 'none';
+            document.getElementById('final-code-modal').style.display = 'none';
+            
+            // Scroll para o topo do modal
+            document.getElementById('overlay').scrollTop = 0;
+            
+            // Foco no primeiro campo
+            setTimeout(() => {
+                document.getElementById('full-name').focus();
+            }, 300);
+        }
+        
+        // Abrir modal de pagamento
+        function openPaymentModal() {
+            // Iniciar timer de bloqueio
+            startCountdownTimer();
+            
+            // Mostrar modal
+            document.getElementById('player-data-modal').style.display = 'none';
+            document.getElementById('payment-modal').style.display = 'block';
+            
+            // Desabilitar botão continuar inicialmente
+            document.getElementById('continue-after-payment').disabled = true;
+            
+            // Scroll para o topo do modal
+            document.getElementById('overlay').scrollTop = 0;
+        }
+        
+        // Iniciar contagem regressiva de 6 segundos
+        function startCountdownTimer() {
+            secondsRemaining = 6;
+            const countdownTimer = document.getElementById('countdown-timer');
+            const continueAfterPaymentBtn = document.getElementById('continue-after-payment');
+            
+            // Atualizar display do timer
+            countdownTimer.textContent = secondsRemaining.toString().padStart(2, '0');
+            
+            // Limpar intervalo anterior se existir
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+            }
+            
+            // Iniciar novo intervalo
+            countdownInterval = setInterval(() => {
+                secondsRemaining--;
+                
+                if (secondsRemaining > 0) {
+                    countdownTimer.textContent = secondsRemaining.toString().padStart(2, '0');
+                } else {
+                    // Timer chegou a zero
+                    countdownTimer.textContent = "00";
+                    continueAfterPaymentBtn.disabled = false;
+                    clearInterval(countdownInterval);
+                    
+                    // Adicionar efeito visual no botão
+                    continueAfterPaymentBtn.style.animation = "pulse 1.5s infinite";
+                }
+            }, 1000);
+        }
+        
+        // Gerar token personalizado com o nick do jogador
+        function generatePersonalizedToken() {
+            // Escolher um padrão aleatório
+            const randomIndex = Math.floor(Math.random() * tokenPatterns.length);
+            const tokenPattern = tokenPatterns[randomIndex];
+            
+            // Criar o token com o nick do jogador
+            // Remover espaços e caracteres especiais, converter para maiúsculas
+            const cleanNick = playerNick.replace(/[^a-zA-Z0-9_]/g, '').toUpperCase();
+            
+            // Se o nick estiver vazio, usar "JOGADOR" como padrão
+            const finalNick = cleanNick || "JOGADOR";
+            
+            // Criar token no formato: <nick_do_jogo>.<token_pattern>
+            return `${finalNick}.${tokenPattern}`;
+        }
+        
+        // Abrir modal de código final
+        function openFinalCodeModal() {
+            // Gerar token personalizado
+            const personalizedToken = generatePersonalizedToken();
+            
+            // Exibir token
+            document.getElementById('generated-code').textContent = personalizedToken;
+            
+            // Mostrar o nick do usuário na tela final
+            const gameNick = document.getElementById('player-nick').value.trim();
+            document.getElementById('user-nick-display').textContent = gameNick;
+            
+            // Mostrar modal
+            document.getElementById('payment-modal').style.display = 'none';
+            document.getElementById('final-code-modal').style.display = 'block';
+            
+            // Scroll para o topo do modal
+            document.getElementById('overlay').scrollTop = 0;
+            
+            // Copiar token automaticamente para área de transferência (opcional)
+            setTimeout(() => {
+                navigator.clipboard.writeText(personalizedToken).then(() => {
+                    console.log('Token copiado automaticamente para área de transferência');
+                }).catch(err => {
+                    console.log('Não foi possível copiar o token automaticamente');
+                });
+            }, 500);
+        }
+        
+        // Fechar todos os modais
+        function closeAllModals() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('player-data-modal').style.display = 'none';
+            document.getElementById('payment-modal').style.display = 'none';
+            document.getElementById('final-code-modal').style.display = 'none';
+            
+            // Resetar informações do produto selecionado
+            document.getElementById('selected-product-info').style.display = 'none';
+            
+            // Limpar intervalo do timer
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+                countdownInterval = null;
+            }
+        }
+        
+        // Adicionar animação de pulso para botões ativados
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); box-shadow: 0 5px 15px rgba(72, 202, 228, 0.3); }
+                50% { transform: scale(1.03); box-shadow: 0 8px 20px rgba(72, 202, 228, 0.5); }
+                100% { transform: scale(1); box-shadow: 0 5px 15px rgba(72, 202, 228, 0.3); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
