@@ -575,6 +575,80 @@
             box-shadow: 0 8px 20px rgba(72, 202, 228, 0.4);
         }
 
+        /* Confirmação de saída */
+        .exit-confirmation {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .exit-modal {
+            background: linear-gradient(145deg, rgba(26, 95, 122, 0.9), rgba(10, 25, 49, 0.9));
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            animation: modalAppear 0.3s ease;
+        }
+
+        .exit-title {
+            color: #ff6b6b;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .exit-message {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .exit-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .exit-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            min-width: 120px;
+        }
+
+        .exit-cancel {
+            background: linear-gradient(to right, var(--blue-medium), var(--cyan-dark));
+            color: white;
+        }
+
+        .exit-cancel:hover {
+            background: linear-gradient(to right, var(--blue-light), var(--cyan-medium));
+            transform: scale(1.05);
+        }
+
+        .exit-confirm {
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            color: white;
+        }
+
+        .exit-confirm:hover {
+            background: linear-gradient(to right, #ff8e8e, #ffaaaa);
+            transform: scale(1.05);
+        }
+
         /* Responsividade */
         @media (max-width: 768px) {
             .products-grid {
@@ -602,6 +676,15 @@
             
             .timer {
                 font-size: 1.8rem;
+            }
+            
+            .exit-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .exit-btn {
+                width: 100%;
             }
         }
 
@@ -655,11 +738,23 @@
     <!-- Efeito de água no fundo -->
     <div class="water-effect"></div>
     
+    <!-- Confirmação de saída -->
+    <div class="exit-confirmation" id="exit-confirmation">
+        <div class="exit-modal">
+            <h3 class="exit-title">Atenção!</h3>
+            <p class="exit-message">Tem certeza que deseja sair? Se você sair agora, todo o progresso da compra será perdido.</p>
+            <div class="exit-buttons">
+                <button class="exit-btn exit-cancel" id="exit-cancel">Cancelar</button>
+                <button class="exit-btn exit-confirm" id="exit-confirm">Sair</button>
+            </div>
+        </div>
+    </div>
+    
     <div class="container">
         <!-- Cabeçalho -->
         <header>
-            <h1 class="logo">Nyrex MC</h1>
-            <p class="tagline">Melhor servidor bedrock!</p>
+            <h1 class="logo">NYREXMC</h1>
+            <p class="tagline">VIPs e Kits Exclusivos para seu Servidor Minecraft</p>
         </header>
         
         <!-- Vitrine de produtos -->
@@ -831,6 +926,7 @@
         let playerNick = "";
         let countdownInterval = null;
         let secondsRemaining = 6;
+        let isExitConfirmationActive = false;
         
         // Padrões de token possíveis
         const tokenPatterns = [
@@ -937,23 +1033,53 @@
             const continueAfterPaymentBtn = document.getElementById('continue-after-payment');
             continueAfterPaymentBtn.addEventListener('click', openFinalCodeModal);
             
-            // Botões de fechar modais
-            document.getElementById('close-player-data').addEventListener('click', closeAllModals);
-            document.getElementById('close-payment').addEventListener('click', closeAllModals);
-            document.getElementById('close-final').addEventListener('click', closeAllModals);
+            // Botões de fechar modais (agora pedem confirmação)
+            document.getElementById('close-player-data').addEventListener('click', showExitConfirmation);
+            document.getElementById('close-payment').addEventListener('click', showExitConfirmation);
+            document.getElementById('close-final').addEventListener('click', showExitConfirmation);
+            
+            // Botões da confirmação de saída
+            document.getElementById('exit-cancel').addEventListener('click', hideExitConfirmation);
+            document.getElementById('exit-confirm').addEventListener('click', function() {
+                closeAllModals();
+                hideExitConfirmation();
+            });
             
             // Botão FINALIZAR COMPRA
             document.getElementById('finish-button').addEventListener('click', function() {
                 closeAllModals();
+                hideExitConfirmation();
                 alert('Obrigado por sua compra! Não se esqueça de enviar o comprovante e código no Discord.');
             });
             
-            // Fechar overlay ao clicar fora do modal
-            document.getElementById('overlay').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeAllModals();
+            // REMOVIDO: Fechar overlay ao clicar fora do modal
+            // document.getElementById('overlay').addEventListener('click', function(e) {
+            //     if (e.target === this) {
+            //         showExitConfirmation();
+            //     }
+            // });
+            
+            // Adicionar evento de teclado para ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && document.getElementById('overlay').style.display === 'flex') {
+                    showExitConfirmation();
                 }
             });
+        }
+        
+        // Mostrar confirmação de saída
+        function showExitConfirmation() {
+            if (isExitConfirmationActive) return;
+            
+            isExitConfirmationActive = true;
+            document.getElementById('exit-confirmation').style.display = 'flex';
+            document.getElementById('exit-confirmation').style.animation = 'modalAppear 0.3s ease';
+        }
+        
+        // Esconder confirmação de saída
+        function hideExitConfirmation() {
+            isExitConfirmationActive = false;
+            document.getElementById('exit-confirmation').style.display = 'none';
         }
         
         // Abrir modal de dados do jogador
@@ -979,6 +1105,9 @@
             document.getElementById('payment-modal').style.display = 'none';
             document.getElementById('final-code-modal').style.display = 'none';
             
+            // Esconder confirmação de saída
+            hideExitConfirmation();
+            
             // Scroll para o topo do modal
             document.getElementById('overlay').scrollTop = 0;
             
@@ -999,6 +1128,9 @@
             
             // Desabilitar botão continuar inicialmente
             document.getElementById('continue-after-payment').disabled = true;
+            
+            // Esconder confirmação de saída
+            hideExitConfirmation();
             
             // Scroll para o topo do modal
             document.getElementById('overlay').scrollTop = 0;
@@ -1069,6 +1201,9 @@
             document.getElementById('payment-modal').style.display = 'none';
             document.getElementById('final-code-modal').style.display = 'block';
             
+            // Esconder confirmação de saída
+            hideExitConfirmation();
+            
             // Scroll para o topo do modal
             document.getElementById('overlay').scrollTop = 0;
             
@@ -1097,6 +1232,9 @@
                 clearInterval(countdownInterval);
                 countdownInterval = null;
             }
+            
+            // Resetar confirmação de saída
+            isExitConfirmationActive = false;
         }
         
         // Adicionar animação de pulso para botões ativados
