@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NyrexMc - Compre seu kit!</title>
+    <title>NyrexMc - VIPs Minecraft</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -29,6 +29,8 @@
             --green-light: #3ae374;
             --red-error: #ff6b6b;
             --yellow-warning: #ffd93d;
+            --discord-purple: #7289da;
+            --discord-dark: #36393f;
         }
 
         body {
@@ -84,7 +86,6 @@
             margin-bottom: 25px;
         }
 
-        /* Barra de usuário */
         .user-bar {
             position: fixed;
             top: 20px;
@@ -139,7 +140,6 @@
             transform: scale(1.05);
         }
 
-        /* Grid de produtos */
         .products-section {
             display: none;
         }
@@ -220,7 +220,6 @@
             box-shadow: 0 8px 20px rgba(72, 202, 228, 0.5);
         }
 
-        /* Tela de Login/Registro */
         .auth-screen {
             display: flex;
             justify-content: center;
@@ -312,7 +311,6 @@
             right: 0;
         }
 
-        /* Formulários */
         .auth-form {
             display: none;
             text-align: left;
@@ -389,7 +387,6 @@
             transform: scale(1.02);
         }
 
-        /* Overlay e modais */
         .overlay {
             position: fixed;
             top: 0;
@@ -459,7 +456,6 @@
             background-color: rgba(72, 202, 228, 0.1);
         }
 
-        /* Informações do produto selecionado */
         .selected-product-info {
             background-color: rgba(26, 95, 122, 0.2);
             border-radius: 10px;
@@ -487,7 +483,6 @@
             margin-top: 5px;
         }
 
-        /* Checkbox */
         .checkbox-group {
             display: flex;
             align-items: flex-start;
@@ -511,7 +506,6 @@
             line-height: 1.4;
         }
 
-        /* Tela de pagamento PIX */
         .payment-section {
             text-align: center;
         }
@@ -591,7 +585,6 @@
             font-size: 0.85rem;
         }
 
-        /* Upload de comprovante */
         .upload-section {
             text-align: center;
             margin-top: 30px;
@@ -719,7 +712,20 @@
             display: block;
         }
 
-        /* Botões */
+        .discord-info {
+            background: rgba(114, 137, 218, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid var(--discord-purple);
+            text-align: left;
+        }
+
+        .discord-icon {
+            color: var(--discord-purple);
+            margin-right: 10px;
+        }
+
         .continue-btn {
             display: block;
             width: 100%;
@@ -753,7 +759,6 @@
             box-shadow: 0 8px 20px rgba(72, 202, 228, 0.4);
         }
 
-        /* Tela de código final */
         .code-section {
             text-align: center;
             padding: 0 5px;
@@ -803,7 +808,6 @@
             font-size: 0.9rem;
         }
 
-        /* Botão finalizar compra */
         .finish-btn-container {
             margin-top: 20px;
             padding-top: 15px;
@@ -834,7 +838,6 @@
             box-shadow: 0 8px 20px rgba(72, 202, 228, 0.4);
         }
 
-        /* Confirmação de saída */
         .exit-confirmation {
             display: none;
             position: fixed;
@@ -908,7 +911,6 @@
             transform: scale(1.05);
         }
 
-        /* Responsividade */
         @media (max-width: 768px) {
             .products-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -986,7 +988,6 @@
             }
         }
 
-        /* Scrollbar personalizada */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -1007,10 +1008,8 @@
     </style>
 </head>
 <body>
-    <!-- Efeito de água no fundo -->
     <div class="water-effect"></div>
     
-    <!-- Confirmação de saída -->
     <div class="exit-confirmation" id="exit-confirmation">
         <div class="exit-modal">
             <h3 class="exit-title">Atenção!</h3>
@@ -1022,7 +1021,6 @@
         </div>
     </div>
     
-    <!-- Barra do usuário -->
     <div class="user-bar" id="user-bar" style="display: none;">
         <div class="user-info">
             <div class="user-avatar" id="user-avatar">U</div>
@@ -1032,13 +1030,11 @@
     </div>
     
     <div class="container">
-        <!-- Cabeçalho -->
         <header>
-            <h1 class="logo">Nyrex MC</h1>
-            <p class="tagline">Melhor servidor bedrock!</p>
+            <h1 class="logo">NYREXMC</h1>
+            <p class="tagline">VIPs e Kits Exclusivos para seu Servidor Minecraft</p>
         </header>
         
-        <!-- Tela de Login/Registro -->
         <section class="auth-screen" id="auth-screen">
             <div class="auth-container">
                 <h2 class="auth-title">Bem-vindo!</h2>
@@ -1054,7 +1050,6 @@
                     <i class="fas fa-user-plus"></i> REGISTRE-SE!
                 </button>
                 
-                <!-- Formulário de Login -->
                 <form class="auth-form" id="login-form">
                     <div class="form-group">
                         <label class="form-label" for="login-email">E-mail</label>
@@ -1072,7 +1067,6 @@
                     </div>
                 </form>
                 
-                <!-- Formulário de Registro -->
                 <form class="auth-form" id="register-form">
                     <div class="form-group">
                         <label class="form-label" for="register-name">Nome Completo</label>
@@ -1102,26 +1096,20 @@
             </div>
         </section>
         
-        <!-- Vitrine de produtos -->
         <section class="products-section" id="products-section">
             <h2 style="text-align: center; margin-bottom: 25px; color: var(--cyan-light); font-size: 1.8rem;">KITS DISPONÍVEIS</h2>
             
-            <div class="products-grid" id="products-grid">
-                <!-- Produtos serão inseridos dinamicamente via JavaScript -->
-            </div>
+            <div class="products-grid" id="products-grid"></div>
         </section>
     </div>
     
-    <!-- Overlay e modais para compras -->
     <div class="overlay" id="overlay">
-        <!-- Modal de dados do jogador -->
         <div class="modal" id="player-data-modal" style="display: none;">
             <div class="modal-header">
                 <h2 class="modal-title">Dados do Jogador</h2>
                 <button class="close-btn" id="close-player-data">&times;</button>
             </div>
             
-            <!-- Informações do produto selecionado -->
             <div class="selected-product-info" id="selected-product-info" style="display: none;">
                 <div class="selected-product-title">Você está comprando:</div>
                 <div class="selected-product-name" id="selected-product-name"></div>
@@ -1155,7 +1143,6 @@
             </form>
         </div>
         
-        <!-- Modal de pagamento PIX -->
         <div class="modal" id="payment-modal" style="display: none;">
             <div class="modal-header">
                 <h2 class="modal-title">Pagamento via PIX</h2>
@@ -1179,12 +1166,18 @@
                     <p class="qr-label">Escaneie este QR Code com seu app bancário</p>
                 </div>
                 
-                <!-- Upload de Comprovante -->
                 <div class="upload-section">
                     <h3 style="color: var(--cyan-medium); margin-bottom: 15px;">Envie o Comprovante</h3>
                     <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem;">
-                        Após realizar o pagamento, envie o comprovante para liberar seu código
+                        Após realizar o pagamento, envie o comprovante
                     </p>
+                    
+                    <div class="discord-info">
+                        <p><i class="fab fa-discord discord-icon"></i> <strong>O comprovante será enviado automaticamente para nosso Discord!</strong></p>
+                        <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">
+                            O token gerado também será enviado junto com o comprovante.
+                        </p>
+                    </div>
                     
                     <div class="upload-area" id="upload-area">
                         <i class="fas fa-cloud-upload-alt upload-icon"></i>
@@ -1213,13 +1206,12 @@
                     <div class="upload-status" id="upload-status"></div>
                     
                     <button class="continue-btn" id="continue-after-upload" disabled>
-                        <i class="fas fa-check-circle"></i> ENVIAR COMPROVANTE E LIBERAR CÓDIGO
+                        <i class="fab fa-discord"></i> ENVIAR PARA DISCORD E GERAR TOKEN
                     </button>
                 </div>
             </div>
         </div>
         
-        <!-- Modal de código final (APÓS UPLOAD) -->
         <div class="modal" id="final-code-modal" style="display: none;">
             <div class="modal-header">
                 <h2 class="modal-title">Compra Confirmada!</h2>
@@ -1229,23 +1221,21 @@
             <div class="code-section">
                 <h3 class="code-title">Seu Código de Confirmação</h3>
                 <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.95rem;">
-                    Comprovante recebido! Aqui está seu código:
+                    Comprovante enviado para o Discord! Aqui está seu código:
                 </p>
                 
-                <div class="generated-code" id="generated-code">
-                    <!-- Código será gerado dinamicamente -->
-                </div>
+                <div class="generated-code" id="generated-code"></div>
                 
                 <div class="instructions">
                     <h4 class="instructions-title">Próximos Passos:</h4>
                     <p class="instructions-text">
-                        Envie este código na area de tickets do nosso discord junto com seu nick!
+                        <i class="fab fa-discord" style="color: var(--discord-purple);"></i> Seu comprovante e token foram enviados para o canal de comprovantes do Discord.
                     </p>
                     <p class="instructions-text" style="margin-top: 10px; color: var(--cyan-light);">
                         <strong>Seu Nick:</strong> <span id="user-nick-display"></span>
                     </p>
                     <p class="instructions-text" style="margin-top: 10px; color: var(--green-success);">
-                        <i class="fas fa-check-circle"></i> Comprovante recebido com sucesso!
+                        <i class="fas fa-check-circle"></i> Embed enviada com sucesso para o Discord!
                     </p>
                 </div>
                 
@@ -1257,65 +1247,33 @@
             </div>
         </div>
     </div>
-    
+
     <script>
-        // Dados dos produtos
+        // 🔧 CONFIGURAÇÃO DO DISCORD - TROQUE O WEBHOOK AQUI!
+        const DISCORD_CONFIG = {
+            webhookUrl: "https://discord.com/api/webhooks/1451109634361528381/lotFlTWsaIndMmfSVVZhmW0EkrVMRYDa9_WAxTIa273KvKl_t402V2slZgJj7jP38M3T", // ← SEU WEBHOOK AQUI
+            channelId: "1451105816890310687"
+        };
+        
         const products = [
-            {
-                name: "KIT CLAVA",
-                price: "15 R$",
-                image: "https://i.postimg.cc/26vF6Bzm/IMG-7774-1.jpg"
-            },
-            {
-                name: "KIT DUO",
-                price: "29,48 R$",
-                image: "https://i.postimg.cc/gk4ynpP9/image.png"
-            },
-            {
-                name: "KIT SPAWNER",
-                price: "7 R$",
-                image: "https://i.postimg.cc/RFzJgpzk/image.png"
-            },
-            {
-                name: "KIT IMORTAL",
-                price: "14,50 R$",
-                image: "https://i.postimg.cc/nzZM4svk/image.png"
-            },
-            {
-                name: "KIT COMPL.CLAN",
-                price: "10 R$",
-                image: "https://i.postimg.cc/tTxQ4DZH/image.png"
-            },
-            {
-                name: "KIT CLAN",
-                price: "17,50 R$",
-                image: "https://i.postimg.cc/43vpRRPD/image.png"
-            },
-            {
-                name: "KIT OP",
-                price: "13 R$",
-                image: "https://i.postimg.cc/CMRHdXx6/image.png"
-            }
+            { name: "KIT CLAVA", price: "15 R$", image: "https://i.postimg.cc/26vF6Bzm/IMG-7774-1.jpg" },
+            { name: "KIT DUO", price: "29,48 R$", image: "https://i.postimg.cc/gk4ynpP9/image.png" },
+            { name: "KIT SPAWNER", price: "7 R$", image: "https://i.postimg.cc/RFzJgpzk/image.png" },
+            { name: "KIT IMORTAL", price: "14,50 R$", image: "https://i.postimg.cc/nzZM4svk/image.png" },
+            { name: "KIT COMPL.CLAN", price: "10 R$", image: "https://i.postimg.cc/tTxQ4DZH/image.png" },
+            { name: "KIT CLAN", price: "17,50 R$", image: "https://i.postimg.cc/43vpRRPD/image.png" },
+            { name: "KIT OP", price: "13 R$", image: "https://i.postimg.cc/CMRHdXx6/image.png" }
         ];
         
-        // Sistema de autenticação
         let currentUser = null;
         let isLoggedIn = false;
-        
-        // Variáveis globais da compra
         let selectedProduct = null;
         let playerNick = "";
         let uploadedFile = null;
         let isExitConfirmationActive = false;
         
-        // Padrões de token possíveis
-        const tokenPatterns = [
-            "TOK3N-COMPR4",
-            "COMPR4-TOK3N", 
-            "COMPR4-REALIZADA"
-        ];
+        const tokenPatterns = ["TOK3N-COMPR4", "COMPR4-TOK3N", "COMPR4-REALIZADA"];
         
-        // Inicialização do site
         document.addEventListener('DOMContentLoaded', function() {
             checkAuthStatus();
             renderProducts();
@@ -1323,10 +1281,8 @@
             setupFileUpload();
         });
         
-        // Verificar status de autenticação
         function checkAuthStatus() {
             const savedUser = localStorage.getItem('nyrexmc_user');
-            
             if (savedUser) {
                 try {
                     currentUser = JSON.parse(savedUser);
@@ -1334,7 +1290,6 @@
                     showStore();
                     updateUserBar();
                 } catch (e) {
-                    console.error('Erro ao carregar usuário:', e);
                     showAuthScreen();
                 }
             } else {
@@ -1342,39 +1297,30 @@
             }
         }
         
-        // Mostrar tela de autenticação
         function showAuthScreen() {
             document.getElementById('auth-screen').style.display = 'flex';
             document.getElementById('products-section').style.display = 'none';
             document.getElementById('user-bar').style.display = 'none';
-            
             document.getElementById('login-form').classList.remove('active');
             document.getElementById('register-form').classList.remove('active');
-            document.getElementById('login-form').reset();
-            document.getElementById('register-form').reset();
         }
         
-        // Mostrar loja
         function showStore() {
             document.getElementById('auth-screen').style.display = 'none';
             document.getElementById('products-section').style.display = 'block';
             document.getElementById('user-bar').style.display = 'flex';
         }
         
-        // Atualizar barra do usuário
         function updateUserBar() {
             if (currentUser) {
                 const firstName = currentUser.name.split(' ')[0];
                 const firstLetter = firstName.charAt(0).toUpperCase();
-                
                 document.getElementById('user-name').textContent = firstName;
                 document.getElementById('user-avatar').textContent = firstLetter;
-                
                 document.getElementById('full-name').value = currentUser.name;
             }
         }
         
-        // Renderizar produtos na vitrine
         function renderProducts() {
             const productsGrid = document.getElementById('products-grid');
             productsGrid.innerHTML = '';
@@ -1382,37 +1328,27 @@
             products.forEach(product => {
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
-                
                 productCard.innerHTML = `
                     <img src="${product.image}" alt="${product.name}" class="product-image">
                     <div class="product-info">
                         <h3 class="product-name">${product.name}</h3>
                         <div class="product-price">${product.price}</div>
-                        <button class="buy-btn" data-product='${JSON.stringify(product)}'>
-                            COMPRAR
-                        </button>
+                        <button class="buy-btn" data-product='${JSON.stringify(product)}'>COMPRAR</button>
                     </div>
                 `;
-                
                 productsGrid.appendChild(productCard);
             });
         }
         
-        // Configurar upload de arquivos
         function setupFileUpload() {
             const fileInput = document.getElementById('file-input');
             const uploadArea = document.getElementById('upload-area');
-            const filePreview = document.getElementById('file-preview');
             const removeFileBtn = document.getElementById('remove-file');
             const continueAfterUploadBtn = document.getElementById('continue-after-upload');
             
-            // Clicar na área de upload
             uploadArea.addEventListener('click', () => fileInput.click());
-            
-            // Alterar arquivo selecionado
             fileInput.addEventListener('change', handleFileSelect);
             
-            // Arrastar e soltar
             uploadArea.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 uploadArea.classList.add('dragover');
@@ -1425,36 +1361,29 @@
             uploadArea.addEventListener('drop', (e) => {
                 e.preventDefault();
                 uploadArea.classList.remove('dragover');
-                
                 if (e.dataTransfer.files.length) {
                     fileInput.files = e.dataTransfer.files;
                     handleFileSelect();
                 }
             });
             
-            // Remover arquivo
             removeFileBtn.addEventListener('click', removeFile);
-            
-            // Continuar após upload
-            continueAfterUploadBtn.addEventListener('click', processReceiptUpload);
+            continueAfterUploadBtn.addEventListener('click', sendToDiscordAndGenerateToken);
         }
         
-        // Processar seleção de arquivo
         function handleFileSelect() {
             const fileInput = document.getElementById('file-input');
             const file = fileInput.files[0];
             
             if (!file) return;
             
-            // Validar tamanho (5MB máximo)
-            const maxSize = 5 * 1024 * 1024; // 5MB
+            const maxSize = 5 * 1024 * 1024;
             if (file.size > maxSize) {
                 showUploadStatus('Arquivo muito grande. Máximo 5MB.', 'error');
                 fileInput.value = '';
                 return;
             }
             
-            // Validar tipo de arquivo
             const validTypes = ['image/jpeg', 'image/png', 'application/pdf'];
             if (!validTypes.includes(file.type)) {
                 showUploadStatus('Tipo de arquivo inválido. Use JPG, PNG ou PDF.', 'error');
@@ -1463,112 +1392,214 @@
             }
             
             uploadedFile = file;
-            
-            // Mostrar preview
             document.getElementById('file-name').textContent = file.name;
             document.getElementById('file-size').textContent = formatFileSize(file.size);
             document.getElementById('file-preview').classList.add('active');
-            
-            // Habilitar botão de continuar
             document.getElementById('continue-after-upload').disabled = false;
-            
-            showUploadStatus('Arquivo selecionado. Clique em "Enviar Comprovante" para continuar.', 'success');
+            showUploadStatus('Arquivo selecionado. Clique para enviar ao Discord.', 'success');
         }
         
-        // Remover arquivo
         function removeFile() {
-            const fileInput = document.getElementById('file-input');
-            fileInput.value = '';
+            document.getElementById('file-input').value = '';
             uploadedFile = null;
-            
             document.getElementById('file-preview').classList.remove('active');
             document.getElementById('continue-after-upload').disabled = true;
-            document.getElementById('upload-status').classList.remove('success');
-            document.getElementById('upload-status').classList.remove('error');
+            document.getElementById('upload-status').classList.remove('success', 'error');
         }
         
-        // Processar upload do comprovante
-        function processReceiptUpload() {
+        // 🚀 FUNÇÃO PRINCIPAL: ENVIAR PARA DISCORD
+        async function sendToDiscordAndGenerateToken() {
             if (!uploadedFile) {
                 showUploadStatus('Selecione um arquivo primeiro.', 'error');
                 return;
             }
             
-            // Simular upload (em produção, enviaria para servidor)
-            showUploadStatus('Enviando comprovante...', 'success');
+            showUploadStatus('Enviando comprovante para o Discord...', 'success');
             
-            // Simular processamento
-            setTimeout(() => {
-                showUploadStatus('Comprovante recebido com sucesso! Liberando código...', 'success');
+            const gameNick = document.getElementById('player-nick').value.trim();
+            const discordNick = document.getElementById('discord-nick').value.trim();
+            const userName = document.getElementById('full-name').value;
+            
+            // Gerar token
+            const token = generatePersonalizedToken();
+            
+            try {
+                // Converter arquivo para base64
+                const base64File = await fileToBase64(uploadedFile);
                 
-                // Gerar e mostrar código após 2 segundos
-                setTimeout(() => {
-                    openFinalCodeModal();
-                }, 2000);
-            }, 1500);
+                // Criar embed do Discord
+                const embed = {
+                    title: "💰 NOVO COMPROVANTE PIX RECEBIDO",
+                    description: `**Compra realizada com sucesso!**`,
+                    color: 0x00ff00,
+                    fields: [
+                        {
+                            name: "👤 Cliente",
+                            value: `**Nome:** ${userName}\n**Nick Minecraft:** ${gameNick}\n**Nick Discord:** ${discordNick}`,
+                            inline: false
+                        },
+                        {
+                            name: "🛒 Produto",
+                            value: `**${selectedProduct.name}** - ${selectedProduct.price}`,
+                            inline: true
+                        },
+                        {
+                            name: "🔑 Token Gerado",
+                            value: `\`\`\`${token}\`\`\``,
+                            inline: true
+                        },
+                        {
+                            name: "📅 Data/Hora",
+                            value: new Date().toLocaleString('pt-BR'),
+                            inline: true
+                        },
+                        {
+                            name: "📋 Status",
+                            value: "✅ **PENDENTE DE APROVAÇÃO**",
+                            inline: false
+                        }
+                    ],
+                    footer: {
+                        text: "NyrexMC • Sistema Automático de Comprovantes",
+                        icon_url: "https://cdn.discordapp.com/attachments/1342495483591000075/1342495483926548592/minecraft-logo.png"
+                    },
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Enviar para Discord via webhook
+                const discordResponse = await sendToDiscordWebhook(embed, uploadedFile, base64File);
+                
+                if (discordResponse.success) {
+                    showUploadStatus('✅ Comprovante enviado para o Discord! Gerando seu token...', 'success');
+                    
+                    // Mostrar token após 2 segundos
+                    setTimeout(() => {
+                        document.getElementById('generated-code').textContent = token;
+                        document.getElementById('user-nick-display').textContent = gameNick;
+                        document.getElementById('payment-modal').style.display = 'none';
+                        document.getElementById('final-code-modal').style.display = 'block';
+                        document.getElementById('overlay').scrollTop = 0;
+                        
+                        // Copiar token automaticamente
+                        navigator.clipboard.writeText(token).then(() => {
+                            console.log('Token copiado automaticamente');
+                        });
+                    }, 2000);
+                    
+                } else {
+                    showUploadStatus('❌ Erro ao enviar para o Discord. Tente novamente.', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Erro:', error);
+                showUploadStatus('❌ Erro no processo. Tente novamente.', 'error');
+            }
         }
         
-        // Mostrar status do upload
+        // 🔄 Converter arquivo para base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+        
+        // 📤 Enviar para Discord via Webhook
+        async function sendToDiscordWebhook(embed, file, base64File) {
+            try {
+                // Primeiro enviar a embed
+                const embedResponse = await fetch(DISCORD_CONFIG.webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ embeds: [embed] })
+                });
+                
+                if (!embedResponse.ok) {
+                    throw new Error('Falha ao enviar embed');
+                }
+                
+                // Depois enviar o arquivo (se necessário)
+                if (file) {
+                    const formData = new FormData();
+                    formData.append('file', file, file.name);
+                    formData.append('content', '📎 **Arquivo do comprovante anexado:**');
+                    
+                    const fileResponse = await fetch(DISCORD_CONFIG.webhookUrl, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    if (!fileResponse.ok) {
+                        throw new Error('Falha ao enviar arquivo');
+                    }
+                }
+                
+                return { success: true };
+                
+            } catch (error) {
+                console.error('Erro ao enviar para Discord:', error);
+                return { success: false, error: error.message };
+            }
+        }
+        
+        function generatePersonalizedToken() {
+            const randomIndex = Math.floor(Math.random() * tokenPatterns.length);
+            const tokenPattern = tokenPatterns[randomIndex];
+            const cleanNick = playerNick.replace(/[^a-zA-Z0-9_]/g, '').toUpperCase();
+            const finalNick = cleanNick || "JOGADOR";
+            return `${finalNick}.${tokenPattern}`;
+        }
+        
         function showUploadStatus(message, type) {
             const statusElement = document.getElementById('upload-status');
             statusElement.textContent = message;
             statusElement.className = 'upload-status ' + type;
         }
         
-        // Formatar tamanho do arquivo
         function formatFileSize(bytes) {
             if (bytes === 0) return '0 Bytes';
-            
             const k = 1024;
             const sizes = ['Bytes', 'KB', 'MB', 'GB'];
             const i = Math.floor(Math.log(bytes) / Math.log(k));
-            
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
         
-        // Configurar listeners de eventos
         function setupEventListeners() {
-            // Botões de autenticação
-            document.getElementById('login-btn').addEventListener('click', function() {
+            document.getElementById('login-btn').addEventListener('click', () => {
                 document.getElementById('login-form').classList.add('active');
                 document.getElementById('register-form').classList.remove('active');
             });
             
-            document.getElementById('register-btn').addEventListener('click', function() {
+            document.getElementById('register-btn').addEventListener('click', () => {
                 document.getElementById('register-form').classList.add('active');
                 document.getElementById('login-form').classList.remove('active');
             });
             
-            // Botões de voltar
-            document.getElementById('back-from-login').addEventListener('click', function() {
+            document.getElementById('back-from-login').addEventListener('click', () => {
                 document.getElementById('login-form').classList.remove('active');
                 document.getElementById('login-form').reset();
             });
             
-            document.getElementById('back-from-register').addEventListener('click', function() {
+            document.getElementById('back-from-register').addEventListener('click', () => {
                 document.getElementById('register-form').classList.remove('active');
                 document.getElementById('register-form').reset();
             });
             
-            // Formulário de login
             document.getElementById('login-form').addEventListener('submit', function(e) {
                 e.preventDefault();
-                
                 const email = document.getElementById('login-email').value.trim();
                 const password = document.getElementById('login-password').value.trim();
-                
                 if (!email || !password) {
                     alert('Por favor, preencha todos os campos.');
                     return;
                 }
-                
                 simulateLogin(email, password);
             });
             
-            // Formulário de registro
             document.getElementById('register-form').addEventListener('submit', function(e) {
                 e.preventDefault();
-                
                 const name = document.getElementById('register-name').value.trim();
                 const email = document.getElementById('register-email').value.trim();
                 const password = document.getElementById('register-password').value.trim();
@@ -1578,33 +1609,25 @@
                     alert('Por favor, preencha todos os campos.');
                     return;
                 }
-                
                 if (password.length < 6) {
                     alert('A senha deve ter pelo menos 6 caracteres.');
                     return;
                 }
-                
                 if (password !== confirmPassword) {
                     alert('As senhas não coincidem.');
                     return;
                 }
-                
                 if (!isValidEmail(email)) {
                     alert('Por favor, insira um e-mail válido.');
                     return;
                 }
-                
                 simulateRegister(name, email, password);
             });
             
-            // Logout
-            document.getElementById('logout-btn').addEventListener('click', function() {
-                if (confirm('Tem certeza que deseja sair?')) {
-                    logout();
-                }
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                if (confirm('Tem certeza que deseja sair?')) logout();
             });
             
-            // Botões de compra
             document.addEventListener('click', function(e) {
                 if (e.target.classList.contains('buy-btn')) {
                     if (!isLoggedIn) {
@@ -1612,25 +1635,19 @@
                         showAuthScreen();
                         return;
                     }
-                    
                     const productData = JSON.parse(e.target.getAttribute('data-product'));
                     openPlayerDataModal(productData);
                 }
             });
             
-            // Checkbox de termos
             const termsCheckbox = document.getElementById('terms-checkbox');
             const continueToPaymentBtn = document.getElementById('continue-to-payment');
-            
-            termsCheckbox.addEventListener('change', function() {
+            termsCheckbox.addEventListener('change', () => {
                 continueToPaymentBtn.disabled = !termsCheckbox.checked;
             });
             
-            // Formulário de dados do jogador
-            const playerDataForm = document.getElementById('player-data-form');
-            playerDataForm.addEventListener('submit', function(e) {
+            document.getElementById('player-data-form').addEventListener('submit', function(e) {
                 e.preventDefault();
-                
                 const gameNick = document.getElementById('player-nick').value.trim();
                 const discordNick = document.getElementById('discord-nick').value.trim();
                 
@@ -1638,94 +1655,73 @@
                     alert('Por favor, preencha todos os campos obrigatórios.');
                     return;
                 }
-                
                 if (!termsCheckbox.checked) {
                     alert('Você precisa aceitar os termos para continuar.');
                     return;
                 }
-                
                 playerNick = gameNick.replace(/\s+/g, '_').toUpperCase();
                 openPaymentModal();
             });
             
-            // Botão para copiar e-mail PIX
-            const copyPixEmailBtn = document.getElementById('copy-pix-email');
-            copyPixEmailBtn.addEventListener('click', function() {
+            document.getElementById('copy-pix-email').addEventListener('click', function() {
                 const pixEmail = document.getElementById('pix-email').textContent;
-                
                 navigator.clipboard.writeText(pixEmail).then(() => {
-                    const originalText = copyPixEmailBtn.innerHTML;
-                    copyPixEmailBtn.innerHTML = '<i class="fas fa-check"></i> E-MAIL COPIADO!';
-                    copyPixEmailBtn.style.background = 'linear-gradient(to right, var(--green-success), var(--green-light))';
-                    
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check"></i> E-MAIL COPIADO!';
+                    this.style.background = 'linear-gradient(to right, var(--green-success), var(--green-light))';
                     setTimeout(() => {
-                        copyPixEmailBtn.innerHTML = originalText;
-                        copyPixEmailBtn.style.background = 'linear-gradient(to right, var(--blue-medium), var(--cyan-dark))';
+                        this.innerHTML = originalText;
+                        this.style.background = 'linear-gradient(to right, var(--blue-medium), var(--cyan-dark))';
                     }, 2000);
                 }).catch(err => {
-                    console.error('Erro ao copiar:', err);
                     alert('Não foi possível copiar o e-mail. Copie manualmente: cauavini.rodr@gmail.com');
                 });
             });
             
-            // Botões de fechar modais
             document.getElementById('close-player-data').addEventListener('click', showExitConfirmation);
             document.getElementById('close-payment').addEventListener('click', showExitConfirmation);
             document.getElementById('close-final').addEventListener('click', showExitConfirmation);
             
-            // Botões da confirmação de saída
             document.getElementById('exit-cancel').addEventListener('click', hideExitConfirmation);
-            document.getElementById('exit-confirm').addEventListener('click', function() {
+            document.getElementById('exit-confirm').addEventListener('click', () => {
                 closeAllModals();
                 hideExitConfirmation();
             });
             
-            // Botão FINALIZAR
-            document.getElementById('finish-button').addEventListener('click', function() {
+            document.getElementById('finish-button').addEventListener('click', () => {
                 closeAllModals();
                 hideExitConfirmation();
-                alert('Obrigado por sua compra! Não se esqueça de enviar o código no Discord.');
+                alert('Obrigado por sua compra! O comprovante foi registrado no Discord.');
             });
             
-            // Tecla ESC
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && document.getElementById('overlay').style.display === 'flex') {
                     showExitConfirmation();
                 }
             });
         }
         
-        // Simular login
         function simulateLogin(email, password) {
             const savedUser = localStorage.getItem('nyrexmc_user');
-            
             if (savedUser) {
                 const user = JSON.parse(savedUser);
-                
                 if (user.email === email) {
                     currentUser = user;
                     isLoggedIn = true;
-                    
                     localStorage.setItem('nyrexmc_logged_in', 'true');
-                    
                     showStore();
                     updateUserBar();
-                    
                     document.getElementById('login-form').reset();
                     document.getElementById('login-form').classList.remove('active');
-                    
                     alert('Login realizado com sucesso!');
                     return;
                 }
             }
-            
             alert('E-mail ou senha incorretos. Tente novamente ou registre-se.');
         }
         
-        // Simular registro
         function simulateRegister(name, email, password) {
             const savedUser = localStorage.getItem('nyrexmc_user');
-            
             if (savedUser) {
                 const existingUser = JSON.parse(savedUser);
                 if (existingUser.email === email) {
@@ -1733,7 +1729,6 @@
                     return;
                 }
             }
-            
             const newUser = {
                 id: Date.now(),
                 name: name,
@@ -1741,150 +1736,84 @@
                 password: password,
                 createdAt: new Date().toISOString()
             };
-            
             localStorage.setItem('nyrexmc_user', JSON.stringify(newUser));
             localStorage.setItem('nyrexmc_logged_in', 'true');
-            
             currentUser = newUser;
             isLoggedIn = true;
-            
             showStore();
             updateUserBar();
-            
             document.getElementById('register-form').reset();
             document.getElementById('register-form').classList.remove('active');
-            
             alert('Conta criada com sucesso! Bem-vindo(a) ao NyrexMc!');
         }
         
-        // Logout
         function logout() {
             currentUser = null;
             isLoggedIn = false;
-            
             localStorage.removeItem('nyrexmc_logged_in');
-            
             showAuthScreen();
-            
             closeAllModals();
             hideExitConfirmation();
         }
         
-        // Validar e-mail
         function isValidEmail(email) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
         }
         
-        // Mostrar confirmação de saída
-        function showExitConfirmation() {
-            if (isExitConfirmationActive) return;
-            
-            isExitConfirmationActive = true;
-            document.getElementById('exit-confirmation').style.display = 'flex';
-            document.getElementById('exit-confirmation').style.animation = 'modalAppear 0.3s ease';
-        }
-        
-        // Esconder confirmação de saída
-        function hideExitConfirmation() {
-            isExitConfirmationActive = false;
-            document.getElementById('exit-confirmation').style.display = 'none';
-        }
-        
-        // Abrir modal de dados do jogador
         function openPlayerDataModal(product) {
             selectedProduct = product;
             playerNick = "";
             uploadedFile = null;
-            
             document.getElementById('selected-product-info').style.display = 'block';
             document.getElementById('selected-product-name').textContent = product.name;
             document.getElementById('selected-product-price').textContent = product.price;
-            
             document.getElementById('player-nick').value = '';
             document.getElementById('discord-nick').value = '';
             document.getElementById('terms-checkbox').checked = false;
             document.getElementById('continue-to-payment').disabled = true;
-            
             if (currentUser) {
                 document.getElementById('full-name').value = currentUser.name;
             }
-            
             document.getElementById('overlay').style.display = 'flex';
             document.getElementById('player-data-modal').style.display = 'block';
             document.getElementById('payment-modal').style.display = 'none';
             document.getElementById('final-code-modal').style.display = 'none';
-            
             hideExitConfirmation();
-            
             document.getElementById('overlay').scrollTop = 0;
-            
             setTimeout(() => {
                 document.getElementById('player-nick').focus();
             }, 300);
         }
         
-        // Abrir modal de pagamento PIX
         function openPaymentModal() {
-            // Resetar upload
             removeFile();
-            
             document.getElementById('player-data-modal').style.display = 'none';
             document.getElementById('payment-modal').style.display = 'block';
-            
             hideExitConfirmation();
-            
             document.getElementById('overlay').scrollTop = 0;
         }
         
-        // Gerar token personalizado
-        function generatePersonalizedToken() {
-            const randomIndex = Math.floor(Math.random() * tokenPatterns.length);
-            const tokenPattern = tokenPatterns[randomIndex];
-            
-            const cleanNick = playerNick.replace(/[^a-zA-Z0-9_]/g, '').toUpperCase();
-            const finalNick = cleanNick || "JOGADOR";
-            
-            return `${finalNick}.${tokenPattern}`;
+        function showExitConfirmation() {
+            if (isExitConfirmationActive) return;
+            isExitConfirmationActive = true;
+            document.getElementById('exit-confirmation').style.display = 'flex';
+            document.getElementById('exit-confirmation').style.animation = 'modalAppear 0.3s ease';
         }
         
-        // Abrir modal de código final (APÓS UPLOAD)
-        function openFinalCodeModal() {
-            const personalizedToken = generatePersonalizedToken();
-            
-            document.getElementById('generated-code').textContent = personalizedToken;
-            
-            const gameNick = document.getElementById('player-nick').value.trim();
-            document.getElementById('user-nick-display').textContent = gameNick;
-            
-            document.getElementById('payment-modal').style.display = 'none';
-            document.getElementById('final-code-modal').style.display = 'block';
-            
-            hideExitConfirmation();
-            
-            document.getElementById('overlay').scrollTop = 0;
-            
-            setTimeout(() => {
-                navigator.clipboard.writeText(personalizedToken).then(() => {
-                    console.log('Token copiado automaticamente');
-                }).catch(err => {
-                    console.log('Não foi possível copiar o token automaticamente');
-                });
-            }, 500);
+        function hideExitConfirmation() {
+            isExitConfirmationActive = false;
+            document.getElementById('exit-confirmation').style.display = 'none';
         }
         
-        // Fechar todos os modais
         function closeAllModals() {
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('player-data-modal').style.display = 'none';
             document.getElementById('payment-modal').style.display = 'none';
             document.getElementById('final-code-modal').style.display = 'none';
-            
             document.getElementById('selected-product-info').style.display = 'none';
-            
             isExitConfirmationActive = false;
         }
     </script>
 </body>
 </html>
-
