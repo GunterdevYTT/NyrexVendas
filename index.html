@@ -29,9 +29,10 @@
             --green-light: #3ae374;
             --red-error: #ff6b6b;
             --yellow-warning: #ffd93d;
-            --discord-purple: #7289da;
-            --discord-dark: #36393f;
-            --discord-blurple: #5865f2;
+            --google-blue: #4285f4;
+            --google-red: #ea4335;
+            --google-green: #34a853;
+            --google-yellow: #fbbc05;
         }
 
         body {
@@ -127,13 +128,24 @@
             color: #0a1931;
         }
 
-        .user-avatar.discord {
-            background: linear-gradient(to right, var(--discord-purple), var(--discord-blurple));
+        .user-avatar.google {
+            background: linear-gradient(45deg, var(--google-blue), var(--google-green), var(--google-yellow), var(--google-red));
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
         }
 
         .user-name {
             font-weight: 600;
             color: var(--cyan-light);
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .logout-btn {
@@ -283,16 +295,17 @@
             letter-spacing: 1px;
         }
 
-        .auth-btn-discord {
-            background: linear-gradient(to right, var(--discord-blurple), var(--discord-purple));
-            color: white;
-            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.3);
+        .auth-btn-google {
+            background: white;
+            color: #757575;
+            border: 1px solid #ddd;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .auth-btn-discord:hover {
-            background: linear-gradient(to right, var(--discord-purple), #5b6eae);
+        .auth-btn-google:hover {
+            background: #f8f8f8;
             transform: scale(1.03);
-            box-shadow: 0 8px 20px rgba(88, 101, 242, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
 
         .auth-btn-email {
@@ -342,6 +355,32 @@
 
         .auth-divider::after {
             right: 0;
+        }
+
+        .google-btn-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .google-icon {
+            width: 20px;
+            height: 20px;
+            background: conic-gradient(
+                from -45deg,
+                var(--google-blue) 90deg,
+                var(--google-green) 90deg 180deg,
+                var(--google-yellow) 180deg 270deg,
+                var(--google-red) 270deg
+            );
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
         }
 
         .auth-form {
@@ -745,20 +784,6 @@
             display: block;
         }
 
-        .discord-info {
-            background: rgba(114, 137, 218, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            margin: 20px 0;
-            border-left: 4px solid var(--discord-purple);
-            text-align: left;
-        }
-
-        .discord-icon {
-            color: var(--discord-purple);
-            margin-right: 10px;
-        }
-
         .continue-btn {
             display: block;
             width: 100%;
@@ -1039,6 +1064,8 @@
             background: var(--cyan-medium);
         }
     </style>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
     <div class="water-effect"></div>
@@ -1066,7 +1093,7 @@
         <header>
             <h1 class="logo">Nyrex SMP</h1>
             <p class="tagline">Melhor servidor Bedrock!</p>
-            <p class="subtitle">Kits exclusivos para você!!!</p>
+            <p class="subtitle">Cumpom de em breve!!! </p>
         </header>
         
         <section class="auth-screen" id="auth-screen">
@@ -1074,9 +1101,12 @@
                 <h2 class="auth-title">Bem-vindo ao Nyrex SMP!</h2>
                 <p class="auth-subtitle">Escolha como deseja entrar</p>
                 
-                <!-- Botão de Login com Discord -->
-                <button class="auth-btn auth-btn-discord" id="discord-login-btn">
-                    <i class="fab fa-discord"></i> ENTRAR COM DISCORD
+                <!-- Botão de Login com Google -->
+                <button class="auth-btn auth-btn-google" id="google-login-btn">
+                    <div class="google-btn-content">
+                        <div class="google-icon">G</div>
+                        <span>ENTRAR COM GOOGLE</span>
+                    </div>
                 </button>
                 
                 <div class="auth-divider">ou</div>
@@ -1215,13 +1245,6 @@
                         Após realizar o pagamento, envie o comprovante
                     </p>
                     
-                    <div class="discord-info">
-                        <p><i class="fab fa-discord discord-icon"></i> <strong>O comprovante será enviado automaticamente para nosso Discord!</strong></p>
-                        <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">
-                            O token gerado também será enviado junto com o comprovante.
-                        </p>
-                    </div>
-                    
                     <div class="upload-area" id="upload-area">
                         <i class="fas fa-cloud-upload-alt upload-icon"></i>
                         <p class="upload-text">
@@ -1249,7 +1272,7 @@
                     <div class="upload-status" id="upload-status"></div>
                     
                     <button class="continue-btn" id="continue-after-upload" disabled>
-                        <i class="fab fa-discord"></i> ENVIAR PARA DISCORD E GERAR TOKEN
+                        <i class="fas fa-paper-plane"></i> ENVIAR COMPROVANTE E GERAR TOKEN
                     </button>
                 </div>
             </div>
@@ -1264,7 +1287,7 @@
             <div class="code-section">
                 <h3 class="code-title">Seu Código de Confirmação</h3>
                 <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.95rem;">
-                    Comprovante enviado para o Discord! Aqui está seu código:
+                    Comprovante enviado! Aqui está seu código:
                 </p>
                 
                 <div class="generated-code" id="generated-code"></div>
@@ -1272,13 +1295,13 @@
                 <div class="instructions">
                     <h4 class="instructions-title">Próximos Passos:</h4>
                     <p class="instructions-text">
-                        <i class="fab fa-discord" style="color: var(--discord-purple);"></i> Seu comprovante e token foram enviados para o canal de comprovantes do Discord.
+                        Seu comprovante foi registrado. Aguarde a aprovação da compra.
                     </p>
                     <p class="instructions-text" style="margin-top: 10px; color: var(--cyan-light);">
                         <strong>Seu Nick:</strong> <span id="user-nick-display"></span>
                     </p>
                     <p class="instructions-text" style="margin-top: 10px; color: var(--green-success);">
-                        <i class="fas fa-check-circle"></i> Embed enviada com sucesso para o Discord!
+                        <i class="fas fa-check-circle"></i> Comprovante registrado com sucesso!
                     </p>
                 </div>
                 
@@ -1292,23 +1315,22 @@
     </div>
 
     <script>
-        // 🔧 CONFIGURAÇÃO DO DISCORD - TROQUE O WEBHOOK AQUI!
+        // 🔧 CONFIGURAÇÃO DO DISCORD WEBHOOK
         const DISCORD_CONFIG = {
-            webhookUrl: "https://discord.com/api/webhooks/1342495483195166720/Y_6NnD6vj3R0tRAGUc4w0x0tY9zB6I_Oyc3q8c1uQqF9gX9xZ8h0Zq3X9eB8x9q0tY9zB6I", // ← SEU WEBHOOK AQUI
+            webhookUrl: "https://discord.com/api/webhooks/1342495483195166720/Y_6NnD6vj3R0tRAGUc4w0x0tY9zB6I_Oyc3q8c1uQqF9gX9xZ8h0Zq3X9eB8x9q0tY9zB6I",
             channelId: "1451105816890310687"
         };
         
-        // 🔧 CONFIGURAÇÃO DO DISCORD OAUTH (Login com Discord)
-        const DISCORD_OAUTH = {
-            clientId: "1451211056016785500", // ← Obter no Discord Developer Portal
-            redirectUri: "https://gunterdevytt.github.io/NyrexVendas//auth/discord/callback", // ← URL do seu site
-            scope: "identify email"
+        // 🔧 CONFIGURAÇÃO DO GOOGLE (para produção)
+        const GOOGLE_CONFIG = {
+            clientId: "SEU_CLIENT_ID_GOOGLE_AQUI", // ← Obter no Google Cloud Console
+            apiKey: "SUA_API_KEY_GOOGLE", // ← Obter no Google Cloud Console
         };
         
         const products = [
             { name: "KIT CLAVA", price: "15,00 R$", image: "https://i.postimg.cc/26vF6Bzm/IMG-7774-1.jpg" },
             { name: "KIT DUO", price: "29,48 R$", image: "https://i.postimg.cc/gk4ynpP9/image.png" },
-            { name: "KIT SPAWNER", price: "7,00 R$", image: "https://i.postimg.cc/RFzJgpzk/image.png" },
+            { name: "KIT SPAWNER", price: "9,50 R$", image: "https://i.postimg.cc/RFzJgpzk/image.png" },
             { name: "KIT IMORTAL", price: "14,50 R$", image: "https://i.postimg.cc/nzZM4svk/image.png" },
             { name: "KIT COMPL.CLAN", price: "10,00 R$", image: "https://i.postimg.cc/tTxQ4DZH/image.png" },
             { name: "KIT CLAN", price: "17,50 R$", image: "https://i.postimg.cc/43vpRRPD/image.png" },
@@ -1329,6 +1351,7 @@
             renderProducts();
             setupEventListeners();
             setupFileUpload();
+            initializeGoogleSignIn();
         });
         
         function checkAuthStatus() {
@@ -1363,25 +1386,24 @@
         
         function updateUserBar() {
             if (currentUser) {
-                let displayName = currentUser.name || currentUser.username || 'Usuário';
+                let displayName = currentUser.name || currentUser.username || currentUser.email || 'Usuário';
                 let firstLetter = displayName.charAt(0).toUpperCase();
+                let avatarElement = document.getElementById('user-avatar');
                 
                 document.getElementById('user-name').textContent = displayName;
-                document.getElementById('user-avatar').textContent = firstLetter;
+                avatarElement.textContent = firstLetter;
                 
-                // Se for login Discord, muda a cor do avatar
-                if (currentUser.discordId) {
-                    document.getElementById('user-avatar').classList.add('discord');
+                // Se for login Google e tiver foto, usa a foto
+                if (currentUser.picture && currentUser.provider === 'google') {
+                    avatarElement.innerHTML = `<img src="${currentUser.picture}" alt="${displayName}">`;
+                    avatarElement.classList.add('google');
+                } else if (currentUser.provider === 'google') {
+                    avatarElement.classList.add('google');
                 } else {
-                    document.getElementById('user-avatar').classList.remove('discord');
+                    avatarElement.classList.remove('google');
                 }
                 
                 document.getElementById('full-name').value = displayName;
-                
-                // Preencher automaticamente o nick do Discord se for login Discord
-                if (currentUser.discordUsername && document.getElementById('discord-nick')) {
-                    document.getElementById('discord-nick').value = currentUser.discordUsername;
-                }
             }
         }
         
@@ -1402,6 +1424,52 @@
                 `;
                 productsGrid.appendChild(productCard);
             });
+        }
+        
+        // 🔐 Inicializar Login com Google
+        function initializeGoogleSignIn() {
+            // Google Identity Services já carregado via script tag
+            console.log('Google Identity Services carregado');
+        }
+        
+        // 🚀 Login com Google
+        function loginWithGoogle() {
+            // Em produção, use a API do Google Identity Services
+            // Esta é uma versão simulada para demonstração
+            
+            alert('Para login completo com Google, você precisa:\n1. Criar projeto no Google Cloud Console\n2. Configurar OAuth 2.0\n3. Obter Client ID\n\nPor enquanto, use a simulação abaixo ou login com email.');
+            
+            // Simulação de login Google
+            simulateGoogleLogin();
+        }
+        
+        // Simulação de login Google
+        function simulateGoogleLogin() {
+            const googleEmail = prompt('Digite seu e-mail do Google:');
+            
+            if (!googleEmail) return;
+            
+            const googleUser = {
+                id: 'google_' + Date.now(),
+                email: googleEmail,
+                name: googleEmail.split('@')[0],
+                username: googleEmail.split('@')[0],
+                picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(googleEmail.split('@')[0])}&background=4285f4&color=fff`,
+                provider: 'google',
+                verified: true,
+                createdAt: new Date().toISOString()
+            };
+            
+            localStorage.setItem('nyrex_user', JSON.stringify(googleUser));
+            localStorage.setItem('nyrex_logged_in', 'true');
+            
+            currentUser = googleUser;
+            isLoggedIn = true;
+            
+            showStore();
+            updateUserBar();
+            
+            alert(`Login com Google realizado como ${googleEmail}!`);
         }
         
         function setupFileUpload() {
@@ -1460,7 +1528,7 @@
             document.getElementById('file-size').textContent = formatFileSize(file.size);
             document.getElementById('file-preview').classList.add('active');
             document.getElementById('continue-after-upload').disabled = false;
-            showUploadStatus('Arquivo selecionado. Clique para enviar ao Discord.', 'success');
+            showUploadStatus('Arquivo selecionado. Clique para enviar.', 'success');
         }
         
         function removeFile() {
@@ -1471,14 +1539,13 @@
             document.getElementById('upload-status').classList.remove('success', 'error');
         }
         
-        // 🚀 FUNÇÃO PRINCIPAL: ENVIAR PARA DISCORD
         async function sendToDiscordAndGenerateToken() {
             if (!uploadedFile) {
                 showUploadStatus('Selecione um arquivo primeiro.', 'error');
                 return;
             }
             
-            showUploadStatus('Enviando comprovante para o Discord...', 'success');
+            showUploadStatus('Enviando comprovante...', 'success');
             
             const gameNick = document.getElementById('player-nick').value.trim();
             const discordNick = document.getElementById('discord-nick').value.trim();
@@ -1534,9 +1601,8 @@
                 const discordResponse = await sendToDiscordWebhook(embed, uploadedFile, base64File);
                 
                 if (discordResponse.success) {
-                    showUploadStatus('✅ Comprovante enviado para o Discord! Gerando seu token...', 'success');
+                    showUploadStatus('✅ Comprovante enviado! Gerando seu token...', 'success');
                     
-                    // Mostrar token após 2 segundos
                     setTimeout(() => {
                         document.getElementById('generated-code').textContent = token;
                         document.getElementById('user-nick-display').textContent = gameNick;
@@ -1544,14 +1610,13 @@
                         document.getElementById('final-code-modal').style.display = 'block';
                         document.getElementById('overlay').scrollTop = 0;
                         
-                        // Copiar token automaticamente
                         navigator.clipboard.writeText(token).then(() => {
                             console.log('Token copiado automaticamente');
                         });
                     }, 2000);
                     
                 } else {
-                    showUploadStatus('❌ Erro ao enviar para o Discord. Tente novamente.', 'error');
+                    showUploadStatus('❌ Erro ao enviar. Tente novamente.', 'error');
                 }
                 
             } catch (error) {
@@ -1560,7 +1625,6 @@
             }
         }
         
-        // 🔄 Converter arquivo para base64
         function fileToBase64(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -1570,10 +1634,8 @@
             });
         }
         
-        // 📤 Enviar para Discord via Webhook
         async function sendToDiscordWebhook(embed, file, base64File) {
             try {
-                // Primeiro enviar a embed
                 const embedResponse = await fetch(DISCORD_CONFIG.webhookUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -1584,7 +1646,6 @@
                     throw new Error('Falha ao enviar embed');
                 }
                 
-                // Depois enviar o arquivo (se necessário)
                 if (file) {
                     const formData = new FormData();
                     formData.append('file', file, file.name);
@@ -1606,62 +1667,6 @@
                 console.error('Erro ao enviar para Discord:', error);
                 return { success: false, error: error.message };
             }
-        }
-        
-        // 🔐 Login com Discord (OAuth2)
-        function loginWithDiscord() {
-            // URL de autorização do Discord
-            const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_OAUTH.clientId}&redirect_uri=${encodeURIComponent(DISCORD_OAUTH.redirectUri)}&response_type=code&scope=${DISCORD_OAUTH.scope}`;
-            
-            // Abrir popup para login
-            const popup = window.open(
-                authUrl,
-                'Discord Login',
-                'width=500,height=700,left=100,top=100'
-            );
-            
-            // Verificar se o popup foi bloqueado
-            if (!popup || popup.closed || typeof popup.closed === 'undefined') {
-                alert('Por favor, permita popups para fazer login com Discord.');
-                return;
-            }
-            
-            // Em produção, você precisaria de um servidor para lidar com o callback
-            // Esta é uma versão simulada para demonstração
-            alert('Para login completo com Discord, você precisa configurar:\n1. Aplicação no Discord Developer Portal\n2. Servidor para lidar com OAuth2\n\nPor enquanto, use o login normal ou simule abaixo.');
-            
-            // Simulação de login Discord (remova em produção)
-            simulateDiscordLogin();
-        }
-        
-        // Simulação de login Discord (para demonstração)
-        function simulateDiscordLogin() {
-            const discordUsername = prompt('Digite seu nome de usuário do Discord (ex: usuario#1234):');
-            
-            if (!discordUsername) return;
-            
-            const discordUser = {
-                id: 'discord_' + Date.now(),
-                username: discordUsername.split('#')[0],
-                discordUsername: discordUsername,
-                discordId: 'simulado_' + Math.random().toString(36).substr(2, 9),
-                email: discordUsername.replace('#', '.') + '@discord.com',
-                name: discordUsername.split('#')[0],
-                avatar: null,
-                provider: 'discord',
-                createdAt: new Date().toISOString()
-            };
-            
-            localStorage.setItem('nyrex_user', JSON.stringify(discordUser));
-            localStorage.setItem('nyrex_logged_in', 'true');
-            
-            currentUser = discordUser;
-            isLoggedIn = true;
-            
-            showStore();
-            updateUserBar();
-            
-            alert(`Login com Discord realizado como ${discordUsername}!`);
         }
         
         function generatePersonalizedToken() {
@@ -1687,8 +1692,8 @@
         }
         
         function setupEventListeners() {
-            // Botão de Login com Discord
-            document.getElementById('discord-login-btn').addEventListener('click', loginWithDiscord);
+            // Botão de Login com Google
+            document.getElementById('google-login-btn').addEventListener('click', loginWithGoogle);
             
             // Botão de Login com Email
             document.getElementById('email-login-btn').addEventListener('click', () => {
@@ -1821,7 +1826,7 @@
             document.getElementById('finish-button').addEventListener('click', () => {
                 closeAllModals();
                 hideExitConfirmation();
-                alert('Obrigado por sua compra no Nyrex SMP! O comprovante foi registrado no Discord.');
+                alert('Obrigado por sua compra no Nyrex SMP! O comprovante foi registrado.');
             });
             
             document.addEventListener('keydown', (e) => {
@@ -1900,11 +1905,11 @@
             document.getElementById('selected-product-name').textContent = product.name;
             document.getElementById('selected-product-price').textContent = product.price;
             document.getElementById('player-nick').value = '';
-            document.getElementById('discord-nick').value = currentUser?.discordUsername || '';
+            document.getElementById('discord-nick').value = '';
             document.getElementById('terms-checkbox').checked = false;
             document.getElementById('continue-to-payment').disabled = true;
             if (currentUser) {
-                document.getElementById('full-name').value = currentUser.name || currentUser.username || '';
+                document.getElementById('full-name').value = currentUser.name || currentUser.email || '';
             }
             document.getElementById('overlay').style.display = 'flex';
             document.getElementById('player-data-modal').style.display = 'block';
@@ -1948,5 +1953,3 @@
     </script>
 </body>
 </html>
-
-
