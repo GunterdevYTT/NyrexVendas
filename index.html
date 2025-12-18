@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NyrexMc - Compre seu vip!</title>
+    <title>NyrexMc - VIPs Minecraft</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -25,6 +25,8 @@
             --navy-light: #4a69bd;
             --text-light: #F5F5F5;
             --text-muted: #CCCCCC;
+            --green-success: #2ecc71;
+            --green-light: #3ae374;
         }
 
         body {
@@ -83,7 +85,66 @@
             margin-bottom: 25px;
         }
 
-        /* Grid de produtos */
+        /* Barra de usuário */
+        .user-bar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(26, 95, 122, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(72, 202, 228, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--cyan-dark), var(--cyan-medium));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #0a1931;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--cyan-light);
+        }
+
+        .logout-btn {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 107, 107, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Grid de produtos (oculto inicialmente) */
+        .products-section {
+            display: none;
+        }
+
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -134,6 +195,7 @@
             text-shadow: 0 0 8px rgba(72, 202, 228, 0.3);
         }
 
+        /* Botão de compra com animação inspirada em água */
         .buy-btn {
             display: block;
             width: 100%;
@@ -164,6 +226,7 @@
             transform: scale(0.98);
         }
 
+        /* Efeito de brilho no botão */
         .buy-btn::after {
             content: '';
             position: absolute;
@@ -180,6 +243,177 @@
             left: 150%;
         }
 
+        /* Tela de Login/Registro */
+        .auth-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 70vh;
+            padding: 20px;
+        }
+
+        .auth-container {
+            background: linear-gradient(145deg, rgba(26, 95, 122, 0.25), rgba(10, 25, 49, 0.3));
+            border-radius: 15px;
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(72, 202, 228, 0.2);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .auth-title {
+            font-size: 2rem;
+            color: var(--cyan-light);
+            margin-bottom: 5px;
+        }
+
+        .auth-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        /* Botões de login/registro */
+        .auth-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, var(--green-success), var(--green-light));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .auth-btn:hover {
+            background: linear-gradient(to right, var(--green-light), #3ae374);
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .auth-btn.secondary {
+            background: linear-gradient(to right, var(--blue-medium), var(--cyan-dark));
+            box-shadow: 0 5px 15px rgba(26, 95, 122, 0.3);
+        }
+
+        .auth-btn.secondary:hover {
+            background: linear-gradient(to right, var(--blue-light), var(--cyan-medium));
+            box-shadow: 0 8px 20px rgba(72, 202, 228, 0.4);
+        }
+
+        .auth-divider {
+            color: var(--text-muted);
+            margin: 20px 0;
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: rgba(72, 202, 228, 0.2);
+        }
+
+        .auth-divider::before {
+            left: 0;
+        }
+
+        .auth-divider::after {
+            right: 0;
+        }
+
+        /* Formulários de login/registro */
+        .auth-form {
+            display: none;
+            text-align: left;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(26, 95, 122, 0.15);
+            border: 1px solid rgba(72, 202, 228, 0.2);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--cyan-medium);
+            box-shadow: 0 0 10px rgba(72, 202, 228, 0.2);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .back-btn {
+            background: rgba(72, 202, 228, 0.1);
+            color: var(--cyan-light);
+            border: 1px solid rgba(72, 202, 228, 0.3);
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            flex: 1;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(72, 202, 228, 0.2);
+        }
+
+        .submit-btn {
+            background: linear-gradient(to right, var(--green-success), var(--green-light));
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            flex: 2;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(to right, var(--green-light), #3ae374);
+            transform: scale(1.02);
+        }
+
+        /* Overlay e modais */
         .overlay {
             position: fixed;
             top: 0;
@@ -249,35 +483,7 @@
             background-color: rgba(72, 202, 228, 0.1);
         }
 
-        /* Formulário */
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px 15px;
-            background-color: rgba(26, 95, 122, 0.15);
-            border: 1px solid rgba(72, 202, 228, 0.2);
-            border-radius: 8px;
-            color: var(--text-light);
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--cyan-medium);
-            box-shadow: 0 0 10px rgba(72, 202, 228, 0.2);
-        }
-
+        /* Informações do produto selecionado */
         .selected-product-info {
             background-color: rgba(26, 95, 122, 0.2);
             border-radius: 10px;
@@ -305,6 +511,7 @@
             margin-top: 5px;
         }
 
+        /* Checkbox */
         .checkbox-group {
             display: flex;
             align-items: flex-start;
@@ -328,15 +535,7 @@
             line-height: 1.4;
         }
 
-        .checkbox-label a {
-            color: var(--cyan-light);
-            text-decoration: none;
-        }
-
-        .checkbox-label a:hover {
-            text-decoration: underline;
-        }
-
+        /* Botão continuar */
         .continue-btn {
             display: block;
             width: 100%;
@@ -488,7 +687,7 @@
             font-size: 0.85rem;
         }
 
-        /* Tela de código final - COMPACTADA */
+        /* Tela de código final */
         .code-section {
             text-align: center;
             padding: 0 5px;
@@ -653,6 +852,14 @@
                 font-size: 2.3rem;
             }
             
+            .user-bar {
+                position: relative;
+                top: 0;
+                right: 0;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+            
             .modal {
                 width: 95%;
                 padding: 20px;
@@ -680,6 +887,10 @@
             .exit-btn {
                 width: 100%;
             }
+            
+            .auth-container {
+                padding: 20px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -705,6 +916,10 @@
             
             .product-price {
                 font-size: 1.4rem;
+            }
+            
+            .auth-container {
+                padding: 15px;
             }
         }
 
@@ -744,15 +959,88 @@
         </div>
     </div>
     
+    <!-- Barra do usuário (inicialmente oculta) -->
+    <div class="user-bar" id="user-bar" style="display: none;">
+        <div class="user-info">
+            <div class="user-avatar" id="user-avatar">U</div>
+            <span class="user-name" id="user-name">Usuário</span>
+        </div>
+        <button class="logout-btn" id="logout-btn">Sair</button>
+    </div>
+    
     <div class="container">
         <!-- Cabeçalho -->
         <header>
-            <h1 class="logo">Nyrex SMP</h1>
-            <p class="tagline">Melhor servidor bedrock da america latina!</p>
+            <h1 class="logo">NYREXMC</h1>
+            <p class="tagline">VIPs e Kits Exclusivos para seu Servidor Minecraft</p>
         </header>
         
-        <!-- Vitrine de produtos -->
-        <section class="products-section">
+        <!-- Tela de Login/Registro -->
+        <section class="auth-screen" id="auth-screen">
+            <div class="auth-container">
+                <h2 class="auth-title">Bem-vindo!</h2>
+                <p class="auth-subtitle">Faça login ou registre-se para continuar</p>
+                
+                <button class="auth-btn" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> LOGIN
+                </button>
+                
+                <div class="auth-divider">ou</div>
+                
+                <button class="auth-btn secondary" id="register-btn">
+                    <i class="fas fa-user-plus"></i> REGISTRE-SE!
+                </button>
+                
+                <!-- Formulário de Login -->
+                <form class="auth-form" id="login-form">
+                    <div class="form-group">
+                        <label class="form-label" for="login-email">E-mail</label>
+                        <input type="email" id="login-email" class="form-input" placeholder="seu@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="login-password">Senha</label>
+                        <input type="password" id="login-password" class="form-input" placeholder="Sua senha" required>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="back-btn" id="back-from-login">Voltar</button>
+                        <button type="submit" class="submit-btn">Entrar</button>
+                    </div>
+                </form>
+                
+                <!-- Formulário de Registro -->
+                <form class="auth-form" id="register-form">
+                    <div class="form-group">
+                        <label class="form-label" for="register-name">Nome Completo</label>
+                        <input type="text" id="register-name" class="form-input" placeholder="Seu nome completo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="register-email">E-mail</label>
+                        <input type="email" id="register-email" class="form-input" placeholder="seu@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="register-password">Senha</label>
+                        <input type="password" id="register-password" class="form-input" placeholder="Crie uma senha forte" required minlength="6">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="register-confirm">Confirmar Senha</label>
+                        <input type="password" id="register-confirm" class="form-input" placeholder="Confirme sua senha" required minlength="6">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="back-btn" id="back-from-register">Voltar</button>
+                        <button type="submit" class="submit-btn">Criar Conta</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        
+        <!-- Vitrine de produtos (inicialmente oculta) -->
+        <section class="products-section" id="products-section">
             <h2 style="text-align: center; margin-bottom: 25px; color: var(--cyan-light); font-size: 1.8rem;">KITS DISPONÍVEIS</h2>
             
             <div class="products-grid" id="products-grid">
@@ -761,7 +1049,7 @@
         </section>
     </div>
     
-    <!-- Overlay e modais -->
+    <!-- Overlay e modais para compras -->
     <div class="overlay" id="overlay">
         <!-- Modal de dados do jogador -->
         <div class="modal" id="player-data-modal" style="display: none;">
@@ -780,7 +1068,7 @@
             <form id="player-data-form">
                 <div class="form-group">
                     <label class="form-label" for="full-name">Nome Completo</label>
-                    <input type="text" id="full-name" class="form-input" placeholder="Digite seu nome completo" required>
+                    <input type="text" id="full-name" class="form-input" value="" readonly>
                 </div>
                 
                 <div class="form-group">
@@ -840,7 +1128,7 @@
             </div>
         </div>
         
-        <!-- Modal de código final - COMPACTADO -->
+        <!-- Modal de código final -->
         <div class="modal" id="final-code-modal" style="display: none;">
             <div class="modal-header">
                 <h2 class="modal-title">Compra Realizada!</h2>
@@ -865,7 +1153,6 @@
                     </p>
                 </div>
                 
-                <!-- BOTÃO FINALIZAR COMPRA ADICIONADO -->
                 <div class="finish-btn-container">
                     <button class="finish-btn" id="finish-button">
                         <i class="fas fa-check-circle"></i> FINALIZAR COMPRA
@@ -915,7 +1202,11 @@
             }
         ];
         
-        // Variáveis globais
+        // Sistema de autenticação
+        let currentUser = null;
+        let isLoggedIn = false;
+        
+        // Variáveis globais da compra
         let selectedProduct = null;
         let playerNick = "";
         let countdownInterval = null;
@@ -931,9 +1222,65 @@
         
         // Inicialização do site
         document.addEventListener('DOMContentLoaded', function() {
+            // Verificar se há usuário salvo no localStorage
+            checkAuthStatus();
+            
             renderProducts();
             setupEventListeners();
         });
+        
+        // Verificar status de autenticação
+        function checkAuthStatus() {
+            const savedUser = localStorage.getItem('nyrexmc_user');
+            
+            if (savedUser) {
+                try {
+                    currentUser = JSON.parse(savedUser);
+                    isLoggedIn = true;
+                    showStore();
+                    updateUserBar();
+                } catch (e) {
+                    console.error('Erro ao carregar usuário:', e);
+                    showAuthScreen();
+                }
+            } else {
+                showAuthScreen();
+            }
+        }
+        
+        // Mostrar tela de autenticação
+        function showAuthScreen() {
+            document.getElementById('auth-screen').style.display = 'flex';
+            document.getElementById('products-section').style.display = 'none';
+            document.getElementById('user-bar').style.display = 'none';
+            
+            // Resetar formulários
+            document.getElementById('login-form').classList.remove('active');
+            document.getElementById('register-form').classList.remove('active');
+            document.getElementById('login-form').reset();
+            document.getElementById('register-form').reset();
+        }
+        
+        // Mostrar loja (após login)
+        function showStore() {
+            document.getElementById('auth-screen').style.display = 'none';
+            document.getElementById('products-section').style.display = 'block';
+            document.getElementById('user-bar').style.display = 'flex';
+        }
+        
+        // Atualizar barra do usuário
+        function updateUserBar() {
+            if (currentUser) {
+                const firstName = currentUser.name.split(' ')[0];
+                const firstLetter = firstName.charAt(0).toUpperCase();
+                
+                document.getElementById('user-name').textContent = firstName;
+                document.getElementById('user-avatar').textContent = firstLetter;
+                
+                // Preencher nome completo automaticamente no formulário de compra
+                document.getElementById('full-name').value = currentUser.name;
+            }
+        }
         
         // Renderizar produtos na vitrine
         function renderProducts() {
@@ -961,9 +1308,94 @@
         
         // Configurar listeners de eventos
         function setupEventListeners() {
+            // Botões de autenticação
+            document.getElementById('login-btn').addEventListener('click', function() {
+                document.getElementById('login-form').classList.add('active');
+                document.getElementById('register-form').classList.remove('active');
+            });
+            
+            document.getElementById('register-btn').addEventListener('click', function() {
+                document.getElementById('register-form').classList.add('active');
+                document.getElementById('login-form').classList.remove('active');
+            });
+            
+            // Botões de voltar
+            document.getElementById('back-from-login').addEventListener('click', function() {
+                document.getElementById('login-form').classList.remove('active');
+                document.getElementById('login-form').reset();
+            });
+            
+            document.getElementById('back-from-register').addEventListener('click', function() {
+                document.getElementById('register-form').classList.remove('active');
+                document.getElementById('register-form').reset();
+            });
+            
+            // Formulário de login
+            document.getElementById('login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('login-email').value.trim();
+                const password = document.getElementById('login-password').value.trim();
+                
+                if (!email || !password) {
+                    alert('Por favor, preencha todos os campos.');
+                    return;
+                }
+                
+                // Simular login (em produção, isso seria uma chamada à API)
+                simulateLogin(email, password);
+            });
+            
+            // Formulário de registro
+            document.getElementById('register-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('register-name').value.trim();
+                const email = document.getElementById('register-email').value.trim();
+                const password = document.getElementById('register-password').value.trim();
+                const confirmPassword = document.getElementById('register-confirm').value.trim();
+                
+                // Validações
+                if (!name || !email || !password || !confirmPassword) {
+                    alert('Por favor, preencha todos os campos.');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    alert('A senha deve ter pelo menos 6 caracteres.');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    alert('As senhas não coincidem.');
+                    return;
+                }
+                
+                if (!isValidEmail(email)) {
+                    alert('Por favor, insira um e-mail válido.');
+                    return;
+                }
+                
+                // Simular registro (em produção, isso seria uma chamada à API)
+                simulateRegister(name, email, password);
+            });
+            
+            // Logout
+            document.getElementById('logout-btn').addEventListener('click', function() {
+                if (confirm('Tem certeza que deseja sair?')) {
+                    logout();
+                }
+            });
+            
             // Botões de compra
             document.addEventListener('click', function(e) {
                 if (e.target.classList.contains('buy-btn')) {
+                    if (!isLoggedIn) {
+                        alert('Você precisa fazer login para comprar.');
+                        showAuthScreen();
+                        return;
+                    }
+                    
                     const productData = JSON.parse(e.target.getAttribute('data-product'));
                     openPlayerDataModal(productData);
                 }
@@ -982,11 +1414,10 @@
             playerDataForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                const fullName = document.getElementById('full-name').value.trim();
                 const gameNick = document.getElementById('player-nick').value.trim();
                 const discordNick = document.getElementById('discord-nick').value.trim();
                 
-                if (!fullName || !gameNick || !discordNick) {
+                if (!gameNick || !discordNick) {
                     alert('Por favor, preencha todos os campos obrigatórios.');
                     return;
                 }
@@ -1027,7 +1458,7 @@
             const continueAfterPaymentBtn = document.getElementById('continue-after-payment');
             continueAfterPaymentBtn.addEventListener('click', openFinalCodeModal);
             
-            // Botões de fechar modais (agora pedem confirmação)
+            // Botões de fechar modais (com confirmação)
             document.getElementById('close-player-data').addEventListener('click', showExitConfirmation);
             document.getElementById('close-payment').addEventListener('click', showExitConfirmation);
             document.getElementById('close-final').addEventListener('click', showExitConfirmation);
@@ -1046,19 +1477,104 @@
                 alert('Obrigado por sua compra! Não se esqueça de enviar o comprovante e código no Discord.');
             });
             
-            // REMOVIDO: Fechar overlay ao clicar fora do modal
-            // document.getElementById('overlay').addEventListener('click', function(e) {
-            //     if (e.target === this) {
-            //         showExitConfirmation();
-            //     }
-            // });
-            
-            // Adicionar evento de teclado para ESC
+            // Evento de teclado para ESC
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && document.getElementById('overlay').style.display === 'flex') {
                     showExitConfirmation();
                 }
             });
+        }
+        
+        // Simular login (simulação - em produção seria API)
+        function simulateLogin(email, password) {
+            // Verificar se há usuário salvo
+            const savedUser = localStorage.getItem('nyrexmc_user');
+            
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                
+                if (user.email === email) {
+                    // Usuário encontrado - fazer login
+                    currentUser = user;
+                    isLoggedIn = true;
+                    
+                    // Salvar status de login
+                    localStorage.setItem('nyrexmc_logged_in', 'true');
+                    
+                    showStore();
+                    updateUserBar();
+                    
+                    // Resetar formulário
+                    document.getElementById('login-form').reset();
+                    document.getElementById('login-form').classList.remove('active');
+                    
+                    alert('Login realizado com sucesso!');
+                    return;
+                }
+            }
+            
+            // Se não encontrou usuário
+            alert('E-mail ou senha incorretos. Tente novamente ou registre-se.');
+        }
+        
+        // Simular registro (simulação - em produção seria API)
+        function simulateRegister(name, email, password) {
+            // Verificar se o e-mail já está em uso
+            const savedUser = localStorage.getItem('nyrexmc_user');
+            
+            if (savedUser) {
+                const existingUser = JSON.parse(savedUser);
+                if (existingUser.email === email) {
+                    alert('Este e-mail já está em uso. Tente fazer login.');
+                    return;
+                }
+            }
+            
+            // Criar novo usuário
+            const newUser = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                password: password, // Em produção, isso seria hash
+                createdAt: new Date().toISOString()
+            };
+            
+            // Salvar usuário
+            localStorage.setItem('nyrexmc_user', JSON.stringify(newUser));
+            localStorage.setItem('nyrexmc_logged_in', 'true');
+            
+            currentUser = newUser;
+            isLoggedIn = true;
+            
+            showStore();
+            updateUserBar();
+            
+            // Resetar formulário
+            document.getElementById('register-form').reset();
+            document.getElementById('register-form').classList.remove('active');
+            
+            alert('Conta criada com sucesso! Bem-vindo(a) ao NyrexMc!');
+        }
+        
+        // Logout
+        function logout() {
+            currentUser = null;
+            isLoggedIn = false;
+            
+            // Limpar status de login
+            localStorage.removeItem('nyrexmc_logged_in');
+            
+            showAuthScreen();
+            
+            // Fechar todos os modais abertos
+            closeAllModals();
+            hideExitConfirmation();
+        }
+        
+        // Validar e-mail
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
         }
         
         // Mostrar confirmação de saída
@@ -1086,12 +1602,16 @@
             document.getElementById('selected-product-name').textContent = product.name;
             document.getElementById('selected-product-price').textContent = product.price;
             
-            // Resetar formulário
-            document.getElementById('full-name').value = '';
+            // Resetar formulário (exceto nome completo que vem do usuário)
             document.getElementById('player-nick').value = '';
             document.getElementById('discord-nick').value = '';
             document.getElementById('terms-checkbox').checked = false;
             document.getElementById('continue-to-payment').disabled = true;
+            
+            // Preencher nome automaticamente se houver usuário
+            if (currentUser) {
+                document.getElementById('full-name').value = currentUser.name;
+            }
             
             // Mostrar modal
             document.getElementById('overlay').style.display = 'flex';
@@ -1105,9 +1625,9 @@
             // Scroll para o topo do modal
             document.getElementById('overlay').scrollTop = 0;
             
-            // Foco no primeiro campo
+            // Foco no primeiro campo editável
             setTimeout(() => {
-                document.getElementById('full-name').focus();
+                document.getElementById('player-nick').focus();
             }, 300);
         }
         
@@ -1244,6 +1764,3 @@
     </script>
 </body>
 </html>
-
-
-
