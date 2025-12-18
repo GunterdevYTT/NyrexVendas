@@ -27,6 +27,8 @@
             --text-muted: #CCCCCC;
             --green-success: #2ecc71;
             --green-light: #3ae374;
+            --red-error: #ff6b6b;
+            --yellow-warning: #ffd93d;
         }
 
         body {
@@ -37,7 +39,6 @@
             overflow-x: hidden;
         }
 
-        /* Efeito de água/ondas sutil no fundo */
         .water-effect {
             position: fixed;
             top: 0;
@@ -52,14 +53,12 @@
             z-index: -1;
         }
 
-        /* Container principal */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* Cabeçalho */
         header {
             text-align: center;
             padding: 25px 20px;
@@ -140,7 +139,7 @@
             transform: scale(1.05);
         }
 
-        /* Grid de produtos (oculto inicialmente) */
+        /* Grid de produtos */
         .products-section {
             display: none;
         }
@@ -195,7 +194,6 @@
             text-shadow: 0 0 8px rgba(72, 202, 228, 0.3);
         }
 
-        /* Botão de compra com animação inspirada em água */
         .buy-btn {
             display: block;
             width: 100%;
@@ -220,27 +218,6 @@
             background: linear-gradient(to right, var(--blue-light), var(--cyan-medium));
             transform: scale(1.03);
             box-shadow: 0 8px 20px rgba(72, 202, 228, 0.5);
-        }
-
-        .buy-btn:active {
-            transform: scale(0.98);
-        }
-
-        /* Efeito de brilho no botão */
-        .buy-btn::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -60%;
-            width: 20%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: rotate(30deg);
-            transition: all 0.5s ease;
-        }
-
-        .buy-btn:hover::after {
-            left: 150%;
         }
 
         /* Tela de Login/Registro */
@@ -276,7 +253,6 @@
             font-size: 1rem;
         }
 
-        /* Botões de login/registro */
         .auth-btn {
             display: block;
             width: 100%;
@@ -336,7 +312,7 @@
             right: 0;
         }
 
-        /* Formulários de login/registro */
+        /* Formulários */
         .auth-form {
             display: none;
             text-align: left;
@@ -535,7 +511,215 @@
             line-height: 1.4;
         }
 
-        /* Botão continuar */
+        /* Tela de pagamento PIX */
+        .payment-section {
+            text-align: center;
+        }
+
+        .payment-title {
+            font-size: 1.6rem;
+            color: var(--cyan-medium);
+            margin-bottom: 10px;
+        }
+
+        .payment-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .pix-info-container {
+            background-color: rgba(26, 95, 122, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            text-align: center;
+        }
+
+        .pix-email {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--yellow-warning);
+            margin: 15px 0;
+            word-break: break-all;
+            padding: 15px;
+            background: rgba(10, 25, 49, 0.5);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 217, 61, 0.3);
+        }
+
+        .copy-btn {
+            background: linear-gradient(to right, var(--blue-medium), var(--cyan-dark));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .copy-btn:hover {
+            background: linear-gradient(to right, var(--blue-light), var(--cyan-medium));
+            transform: scale(1.05);
+        }
+
+        .qr-code-container {
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .qr-code {
+            max-width: 220px;
+            border-radius: 10px;
+            border: 2px solid rgba(72, 202, 228, 0.2);
+            margin: 0 auto 12px;
+            display: block;
+            background-color: white;
+            padding: 8px;
+        }
+
+        .qr-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Upload de comprovante */
+        .upload-section {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(72, 202, 228, 0.2);
+        }
+
+        .upload-area {
+            border: 2px dashed rgba(72, 202, 228, 0.4);
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(26, 95, 122, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 20px 0;
+        }
+
+        .upload-area:hover {
+            border-color: var(--cyan-medium);
+            background: rgba(26, 95, 122, 0.2);
+        }
+
+        .upload-area.dragover {
+            border-color: var(--green-success);
+            background: rgba(46, 204, 113, 0.1);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--cyan-medium);
+            margin-bottom: 15px;
+        }
+
+        .upload-text {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .upload-hint {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        .file-preview {
+            display: none;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(26, 95, 122, 0.2);
+            border-radius: 10px;
+            border-left: 4px solid var(--green-success);
+            text-align: left;
+        }
+
+        .file-preview.active {
+            display: block;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .file-icon {
+            font-size: 2rem;
+            color: var(--green-success);
+        }
+
+        .file-details {
+            flex: 1;
+        }
+
+        .file-name {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .file-size {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .remove-file {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .remove-file:hover {
+            background: rgba(255, 107, 107, 0.3);
+        }
+
+        .upload-status {
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+            display: none;
+        }
+
+        .upload-status.success {
+            background: rgba(46, 204, 113, 0.2);
+            color: var(--green-success);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            display: block;
+        }
+
+        .upload-status.error {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            display: block;
+        }
+
+        /* Botões */
         .continue-btn {
             display: block;
             width: 100%;
@@ -567,124 +751,6 @@
             background: linear-gradient(to right, var(--cyan-medium), var(--cyan-light));
             transform: scale(1.03);
             box-shadow: 0 8px 20px rgba(72, 202, 228, 0.4);
-        }
-
-        /* Tela de pagamento */
-        .payment-section {
-            text-align: center;
-        }
-
-        .payment-title {
-            font-size: 1.6rem;
-            color: var(--cyan-medium);
-            margin-bottom: 10px;
-        }
-
-        .payment-subtitle {
-            color: var(--text-muted);
-            margin-bottom: 25px;
-            font-size: 0.95rem;
-        }
-
-        .pix-key-container {
-            background-color: rgba(26, 95, 122, 0.2);
-            border-radius: 10px;
-            padding: 18px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(0, 180, 216, 0.2);
-            text-align: left;
-        }
-
-        .pix-label {
-            color: var(--text-muted);
-            margin-bottom: 10px;
-            display: block;
-            font-size: 0.95rem;
-        }
-
-        .pix-key {
-            background-color: rgba(10, 25, 49, 0.5);
-            padding: 14px;
-            border-radius: 8px;
-            font-family: monospace;
-            word-break: break-all;
-            margin-bottom: 15px;
-            border: 1px solid rgba(0, 180, 216, 0.15);
-            color: #90e0ef;
-            font-size: 0.9rem;
-            max-height: 80px;
-            overflow-y: auto;
-        }
-
-        .copy-btn {
-            background: linear-gradient(to right, var(--blue-medium), var(--cyan-dark));
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 20px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .copy-btn:hover {
-            background: linear-gradient(to right, var(--blue-light), var(--cyan-medium));
-            transform: scale(1.05);
-        }
-
-        .qr-code-container {
-            margin: 25px 0;
-            text-align: center;
-        }
-
-        .qr-code {
-            max-width: 220px;
-            border-radius: 10px;
-            border: 2px solid rgba(72, 202, 228, 0.2);
-            margin: 0 auto 12px;
-            display: block;
-            background-color: white;
-            padding: 8px;
-        }
-
-        .qr-label {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        /* Timer de bloqueio */
-        .timer-container {
-            background-color: rgba(26, 95, 122, 0.2);
-            border-radius: 10px;
-            padding: 18px;
-            margin: 20px 0;
-            text-align: center;
-            border: 1px solid rgba(72, 202, 228, 0.2);
-        }
-
-        .timer-title {
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-        }
-
-        .timer {
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: var(--cyan-light);
-            font-family: monospace;
-            text-shadow: 0 0 10px rgba(72, 202, 228, 0.5);
-            margin-bottom: 8px;
-        }
-
-        .timer-message {
-            color: var(--text-muted);
-            font-size: 0.85rem;
         }
 
         /* Tela de código final */
@@ -875,10 +941,6 @@
                 font-size: 1.4rem;
             }
             
-            .timer {
-                font-size: 1.8rem;
-            }
-            
             .exit-buttons {
                 flex-direction: column;
                 gap: 10px;
@@ -891,6 +953,11 @@
             .auth-container {
                 padding: 20px;
             }
+            
+            .pix-email {
+                font-size: 1.1rem;
+                padding: 10px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -900,10 +967,6 @@
             
             .logo {
                 font-size: 1.8rem;
-            }
-            
-            .timer {
-                font-size: 1.6rem;
             }
             
             .modal {
@@ -959,7 +1022,7 @@
         </div>
     </div>
     
-    <!-- Barra do usuário (inicialmente oculta) -->
+    <!-- Barra do usuário -->
     <div class="user-bar" id="user-bar" style="display: none;">
         <div class="user-info">
             <div class="user-avatar" id="user-avatar">U</div>
@@ -971,8 +1034,8 @@
     <div class="container">
         <!-- Cabeçalho -->
         <header>
-            <h1 class="logo">Nyrex SMP</h1>
-            <p class="tagline">Melhor servidor bedrock!</p>
+            <h1 class="logo">NYREXMC</h1>
+            <p class="tagline">VIPs e Kits Exclusivos para seu Servidor Minecraft</p>
         </header>
         
         <!-- Tela de Login/Registro -->
@@ -1039,7 +1102,7 @@
             </div>
         </section>
         
-        <!-- Vitrine de produtos (inicialmente oculta) -->
+        <!-- Vitrine de produtos -->
         <section class="products-section" id="products-section">
             <h2 style="text-align: center; margin-bottom: 25px; color: var(--cyan-light); font-size: 1.8rem;">KITS DISPONÍVEIS</h2>
             
@@ -1092,7 +1155,7 @@
             </form>
         </div>
         
-        <!-- Modal de pagamento -->
+        <!-- Modal de pagamento PIX -->
         <div class="modal" id="payment-modal" style="display: none;">
             <div class="modal-header">
                 <h2 class="modal-title">Pagamento via PIX</h2>
@@ -1100,16 +1163,14 @@
             </div>
             
             <div class="payment-section">
-                <h3 class="payment-title">Finalize seu Pagamento</h3>
-                <p class="payment-subtitle">Use uma das opções abaixo para pagar com PIX</p>
+                <h3 class="payment-title">Faça o Pagamento PIX</h3>
+                <p class="payment-subtitle">Copie a chave PIX ou escaneie o QR Code</p>
                 
-                <div class="pix-key-container">
-                    <span class="pix-label">Chave PIX (copie e cole no seu app bancário):</span>
-                    <div class="pix-key" id="pix-key">
-                        00020101021126450014br.gov.bcb.pix0123cauavini.rodr@gmail.com5204000053039865802BR5921CAUA V DA S RODRIGUES6013EMBU DAS ARTE62070503***63046A74
-                    </div>
-                    <button class="copy-btn" id="copy-pix-key">
-                        <i class="fas fa-copy"></i> COPIAR CHAVE PIX
+                <div class="pix-info-container">
+                    <p style="color: var(--text-muted); margin-bottom: 10px;">Chave PIX (e-mail):</p>
+                    <div class="pix-email" id="pix-email">cauavini.rodr@gmail.com</div>
+                    <button class="copy-btn" id="copy-pix-email">
+                        <i class="fas fa-copy"></i> COPIAR E-MAIL PIX
                     </button>
                 </div>
                 
@@ -1118,26 +1179,58 @@
                     <p class="qr-label">Escaneie este QR Code com seu app bancário</p>
                 </div>
                 
-                <div class="timer-container">
-                    <p class="timer-title">Aguarde para continuar:</p>
-                    <div class="timer" id="countdown-timer">06</div>
-                    <p class="timer-message">Por segurança, você precisa aguardar 6 segundos antes de continuar</p>
+                <!-- Upload de Comprovante -->
+                <div class="upload-section">
+                    <h3 style="color: var(--cyan-medium); margin-bottom: 15px;">Envie o Comprovante</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem;">
+                        Após realizar o pagamento, envie o comprovante para liberar seu código
+                    </p>
+                    
+                    <div class="upload-area" id="upload-area">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p class="upload-text">
+                            <strong>Clique para selecionar ou arraste o comprovante</strong>
+                        </p>
+                        <p class="upload-hint">
+                            Formatos aceitos: JPG, PNG, PDF (máx. 5MB)
+                        </p>
+                        <input type="file" id="file-input" accept=".jpg,.jpeg,.png,.pdf">
+                    </div>
+                    
+                    <div class="file-preview" id="file-preview">
+                        <div class="file-info">
+                            <i class="fas fa-file-image file-icon"></i>
+                            <div class="file-details">
+                                <div class="file-name" id="file-name"></div>
+                                <div class="file-size" id="file-size"></div>
+                            </div>
+                            <button class="remove-file" id="remove-file">
+                                <i class="fas fa-times"></i> Remover
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="upload-status" id="upload-status"></div>
+                    
+                    <button class="continue-btn" id="continue-after-upload" disabled>
+                        <i class="fas fa-check-circle"></i> ENVIAR COMPROVANTE E LIBERAR CÓDIGO
+                    </button>
                 </div>
-                
-                <button class="continue-btn" id="continue-after-payment" disabled>CONTINUAR</button>
             </div>
         </div>
         
-        <!-- Modal de código final -->
+        <!-- Modal de código final (APÓS UPLOAD) -->
         <div class="modal" id="final-code-modal" style="display: none;">
             <div class="modal-header">
-                <h2 class="modal-title">Compra Realizada!</h2>
+                <h2 class="modal-title">Compra Confirmada!</h2>
                 <button class="close-btn" id="close-final">&times;</button>
             </div>
             
             <div class="code-section">
                 <h3 class="code-title">Seu Código de Confirmação</h3>
-                <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.95rem;">Guarde este código para validar sua compra:</p>
+                <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.95rem;">
+                    Comprovante recebido! Aqui está seu código:
+                </p>
                 
                 <div class="generated-code" id="generated-code">
                     <!-- Código será gerado dinamicamente -->
@@ -1146,16 +1239,19 @@
                 <div class="instructions">
                     <h4 class="instructions-title">Próximos Passos:</h4>
                     <p class="instructions-text">
-                        Envie o print do comprovante e o codigo recebido na area de tickets do nosso discord!
+                        Envie este código na area de tickets do nosso discord junto com seu nick!
                     </p>
                     <p class="instructions-text" style="margin-top: 10px; color: var(--cyan-light);">
-                        <strong>Nick informado:</strong> <span id="user-nick-display"></span>
+                        <strong>Seu Nick:</strong> <span id="user-nick-display"></span>
+                    </p>
+                    <p class="instructions-text" style="margin-top: 10px; color: var(--green-success);">
+                        <i class="fas fa-check-circle"></i> Comprovante recebido com sucesso!
                     </p>
                 </div>
                 
                 <div class="finish-btn-container">
                     <button class="finish-btn" id="finish-button">
-                        <i class="fas fa-check-circle"></i> FINALIZAR COMPRA
+                        <i class="fas fa-check-double"></i> FINALIZAR
                     </button>
                 </div>
             </div>
@@ -1209,8 +1305,7 @@
         // Variáveis globais da compra
         let selectedProduct = null;
         let playerNick = "";
-        let countdownInterval = null;
-        let secondsRemaining = 6;
+        let uploadedFile = null;
         let isExitConfirmationActive = false;
         
         // Padrões de token possíveis
@@ -1222,11 +1317,10 @@
         
         // Inicialização do site
         document.addEventListener('DOMContentLoaded', function() {
-            // Verificar se há usuário salvo no localStorage
             checkAuthStatus();
-            
             renderProducts();
             setupEventListeners();
+            setupFileUpload();
         });
         
         // Verificar status de autenticação
@@ -1254,14 +1348,13 @@
             document.getElementById('products-section').style.display = 'none';
             document.getElementById('user-bar').style.display = 'none';
             
-            // Resetar formulários
             document.getElementById('login-form').classList.remove('active');
             document.getElementById('register-form').classList.remove('active');
             document.getElementById('login-form').reset();
             document.getElementById('register-form').reset();
         }
         
-        // Mostrar loja (após login)
+        // Mostrar loja
         function showStore() {
             document.getElementById('auth-screen').style.display = 'none';
             document.getElementById('products-section').style.display = 'block';
@@ -1277,7 +1370,6 @@
                 document.getElementById('user-name').textContent = firstName;
                 document.getElementById('user-avatar').textContent = firstLetter;
                 
-                // Preencher nome completo automaticamente no formulário de compra
                 document.getElementById('full-name').value = currentUser.name;
             }
         }
@@ -1304,6 +1396,134 @@
                 
                 productsGrid.appendChild(productCard);
             });
+        }
+        
+        // Configurar upload de arquivos
+        function setupFileUpload() {
+            const fileInput = document.getElementById('file-input');
+            const uploadArea = document.getElementById('upload-area');
+            const filePreview = document.getElementById('file-preview');
+            const removeFileBtn = document.getElementById('remove-file');
+            const continueAfterUploadBtn = document.getElementById('continue-after-upload');
+            
+            // Clicar na área de upload
+            uploadArea.addEventListener('click', () => fileInput.click());
+            
+            // Alterar arquivo selecionado
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            // Arrastar e soltar
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleFileSelect();
+                }
+            });
+            
+            // Remover arquivo
+            removeFileBtn.addEventListener('click', removeFile);
+            
+            // Continuar após upload
+            continueAfterUploadBtn.addEventListener('click', processReceiptUpload);
+        }
+        
+        // Processar seleção de arquivo
+        function handleFileSelect() {
+            const fileInput = document.getElementById('file-input');
+            const file = fileInput.files[0];
+            
+            if (!file) return;
+            
+            // Validar tamanho (5MB máximo)
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            if (file.size > maxSize) {
+                showUploadStatus('Arquivo muito grande. Máximo 5MB.', 'error');
+                fileInput.value = '';
+                return;
+            }
+            
+            // Validar tipo de arquivo
+            const validTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+            if (!validTypes.includes(file.type)) {
+                showUploadStatus('Tipo de arquivo inválido. Use JPG, PNG ou PDF.', 'error');
+                fileInput.value = '';
+                return;
+            }
+            
+            uploadedFile = file;
+            
+            // Mostrar preview
+            document.getElementById('file-name').textContent = file.name;
+            document.getElementById('file-size').textContent = formatFileSize(file.size);
+            document.getElementById('file-preview').classList.add('active');
+            
+            // Habilitar botão de continuar
+            document.getElementById('continue-after-upload').disabled = false;
+            
+            showUploadStatus('Arquivo selecionado. Clique em "Enviar Comprovante" para continuar.', 'success');
+        }
+        
+        // Remover arquivo
+        function removeFile() {
+            const fileInput = document.getElementById('file-input');
+            fileInput.value = '';
+            uploadedFile = null;
+            
+            document.getElementById('file-preview').classList.remove('active');
+            document.getElementById('continue-after-upload').disabled = true;
+            document.getElementById('upload-status').classList.remove('success');
+            document.getElementById('upload-status').classList.remove('error');
+        }
+        
+        // Processar upload do comprovante
+        function processReceiptUpload() {
+            if (!uploadedFile) {
+                showUploadStatus('Selecione um arquivo primeiro.', 'error');
+                return;
+            }
+            
+            // Simular upload (em produção, enviaria para servidor)
+            showUploadStatus('Enviando comprovante...', 'success');
+            
+            // Simular processamento
+            setTimeout(() => {
+                showUploadStatus('Comprovante recebido com sucesso! Liberando código...', 'success');
+                
+                // Gerar e mostrar código após 2 segundos
+                setTimeout(() => {
+                    openFinalCodeModal();
+                }, 2000);
+            }, 1500);
+        }
+        
+        // Mostrar status do upload
+        function showUploadStatus(message, type) {
+            const statusElement = document.getElementById('upload-status');
+            statusElement.textContent = message;
+            statusElement.className = 'upload-status ' + type;
+        }
+        
+        // Formatar tamanho do arquivo
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
         
         // Configurar listeners de eventos
@@ -1342,7 +1562,6 @@
                     return;
                 }
                 
-                // Simular login (em produção, isso seria uma chamada à API)
                 simulateLogin(email, password);
             });
             
@@ -1355,7 +1574,6 @@
                 const password = document.getElementById('register-password').value.trim();
                 const confirmPassword = document.getElementById('register-confirm').value.trim();
                 
-                // Validações
                 if (!name || !email || !password || !confirmPassword) {
                     alert('Por favor, preencha todos os campos.');
                     return;
@@ -1376,7 +1594,6 @@
                     return;
                 }
                 
-                // Simular registro (em produção, isso seria uma chamada à API)
                 simulateRegister(name, email, password);
             });
             
@@ -1427,38 +1644,31 @@
                     return;
                 }
                 
-                // Salvar o nick do jogo para usar na geração do token
                 playerNick = gameNick.replace(/\s+/g, '_').toUpperCase();
-                
                 openPaymentModal();
             });
             
-            // Botão para copiar chave PIX
-            const copyPixKeyBtn = document.getElementById('copy-pix-key');
-            copyPixKeyBtn.addEventListener('click', function() {
-                const pixKey = document.getElementById('pix-key').textContent;
+            // Botão para copiar e-mail PIX
+            const copyPixEmailBtn = document.getElementById('copy-pix-email');
+            copyPixEmailBtn.addEventListener('click', function() {
+                const pixEmail = document.getElementById('pix-email').textContent;
                 
-                navigator.clipboard.writeText(pixKey).then(() => {
-                    // Feedback visual
-                    const originalText = copyPixKeyBtn.innerHTML;
-                    copyPixKeyBtn.innerHTML = '<i class="fas fa-check"></i> CHAVE COPIADA!';
-                    copyPixKeyBtn.style.background = 'linear-gradient(to right, var(--cyan-medium), var(--cyan-light))';
+                navigator.clipboard.writeText(pixEmail).then(() => {
+                    const originalText = copyPixEmailBtn.innerHTML;
+                    copyPixEmailBtn.innerHTML = '<i class="fas fa-check"></i> E-MAIL COPIADO!';
+                    copyPixEmailBtn.style.background = 'linear-gradient(to right, var(--green-success), var(--green-light))';
                     
                     setTimeout(() => {
-                        copyPixKeyBtn.innerHTML = originalText;
-                        copyPixKeyBtn.style.background = 'linear-gradient(to right, var(--blue-medium), var(--cyan-dark))';
+                        copyPixEmailBtn.innerHTML = originalText;
+                        copyPixEmailBtn.style.background = 'linear-gradient(to right, var(--blue-medium), var(--cyan-dark))';
                     }, 2000);
                 }).catch(err => {
-                    console.error('Erro ao copiar: ', err);
-                    alert('Não foi possível copiar a chave PIX. Copie manualmente.');
+                    console.error('Erro ao copiar:', err);
+                    alert('Não foi possível copiar o e-mail. Copie manualmente: cauavini.rodr@gmail.com');
                 });
             });
             
-            // Botão continuar após pagamento (com timer)
-            const continueAfterPaymentBtn = document.getElementById('continue-after-payment');
-            continueAfterPaymentBtn.addEventListener('click', openFinalCodeModal);
-            
-            // Botões de fechar modais (com confirmação)
+            // Botões de fechar modais
             document.getElementById('close-player-data').addEventListener('click', showExitConfirmation);
             document.getElementById('close-payment').addEventListener('click', showExitConfirmation);
             document.getElementById('close-final').addEventListener('click', showExitConfirmation);
@@ -1470,14 +1680,14 @@
                 hideExitConfirmation();
             });
             
-            // Botão FINALIZAR COMPRA
+            // Botão FINALIZAR
             document.getElementById('finish-button').addEventListener('click', function() {
                 closeAllModals();
                 hideExitConfirmation();
-                alert('Obrigado por sua compra! Não se esqueça de enviar o comprovante e código no Discord.');
+                alert('Obrigado por sua compra! Não se esqueça de enviar o código no Discord.');
             });
             
-            // Evento de teclado para ESC
+            // Tecla ESC
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && document.getElementById('overlay').style.display === 'flex') {
                     showExitConfirmation();
@@ -1485,26 +1695,22 @@
             });
         }
         
-        // Simular login (simulação - em produção seria API)
+        // Simular login
         function simulateLogin(email, password) {
-            // Verificar se há usuário salvo
             const savedUser = localStorage.getItem('nyrexmc_user');
             
             if (savedUser) {
                 const user = JSON.parse(savedUser);
                 
                 if (user.email === email) {
-                    // Usuário encontrado - fazer login
                     currentUser = user;
                     isLoggedIn = true;
                     
-                    // Salvar status de login
                     localStorage.setItem('nyrexmc_logged_in', 'true');
                     
                     showStore();
                     updateUserBar();
                     
-                    // Resetar formulário
                     document.getElementById('login-form').reset();
                     document.getElementById('login-form').classList.remove('active');
                     
@@ -1513,13 +1719,11 @@
                 }
             }
             
-            // Se não encontrou usuário
             alert('E-mail ou senha incorretos. Tente novamente ou registre-se.');
         }
         
-        // Simular registro (simulação - em produção seria API)
+        // Simular registro
         function simulateRegister(name, email, password) {
-            // Verificar se o e-mail já está em uso
             const savedUser = localStorage.getItem('nyrexmc_user');
             
             if (savedUser) {
@@ -1530,16 +1734,14 @@
                 }
             }
             
-            // Criar novo usuário
             const newUser = {
                 id: Date.now(),
                 name: name,
                 email: email,
-                password: password, // Em produção, isso seria hash
+                password: password,
                 createdAt: new Date().toISOString()
             };
             
-            // Salvar usuário
             localStorage.setItem('nyrexmc_user', JSON.stringify(newUser));
             localStorage.setItem('nyrexmc_logged_in', 'true');
             
@@ -1549,7 +1751,6 @@
             showStore();
             updateUserBar();
             
-            // Resetar formulário
             document.getElementById('register-form').reset();
             document.getElementById('register-form').classList.remove('active');
             
@@ -1561,12 +1762,10 @@
             currentUser = null;
             isLoggedIn = false;
             
-            // Limpar status de login
             localStorage.removeItem('nyrexmc_logged_in');
             
             showAuthScreen();
             
-            // Fechar todos os modais abertos
             closeAllModals();
             hideExitConfirmation();
         }
@@ -1596,135 +1795,78 @@
         function openPlayerDataModal(product) {
             selectedProduct = product;
             playerNick = "";
+            uploadedFile = null;
             
-            // Mostrar informações do produto selecionado
             document.getElementById('selected-product-info').style.display = 'block';
             document.getElementById('selected-product-name').textContent = product.name;
             document.getElementById('selected-product-price').textContent = product.price;
             
-            // Resetar formulário (exceto nome completo que vem do usuário)
             document.getElementById('player-nick').value = '';
             document.getElementById('discord-nick').value = '';
             document.getElementById('terms-checkbox').checked = false;
             document.getElementById('continue-to-payment').disabled = true;
             
-            // Preencher nome automaticamente se houver usuário
             if (currentUser) {
                 document.getElementById('full-name').value = currentUser.name;
             }
             
-            // Mostrar modal
             document.getElementById('overlay').style.display = 'flex';
             document.getElementById('player-data-modal').style.display = 'block';
             document.getElementById('payment-modal').style.display = 'none';
             document.getElementById('final-code-modal').style.display = 'none';
             
-            // Esconder confirmação de saída
             hideExitConfirmation();
             
-            // Scroll para o topo do modal
             document.getElementById('overlay').scrollTop = 0;
             
-            // Foco no primeiro campo editável
             setTimeout(() => {
                 document.getElementById('player-nick').focus();
             }, 300);
         }
         
-        // Abrir modal de pagamento
+        // Abrir modal de pagamento PIX
         function openPaymentModal() {
-            // Iniciar timer de bloqueio
-            startCountdownTimer();
+            // Resetar upload
+            removeFile();
             
-            // Mostrar modal
             document.getElementById('player-data-modal').style.display = 'none';
             document.getElementById('payment-modal').style.display = 'block';
             
-            // Desabilitar botão continuar inicialmente
-            document.getElementById('continue-after-payment').disabled = true;
-            
-            // Esconder confirmação de saída
             hideExitConfirmation();
             
-            // Scroll para o topo do modal
             document.getElementById('overlay').scrollTop = 0;
         }
         
-        // Iniciar contagem regressiva de 6 segundos
-        function startCountdownTimer() {
-            secondsRemaining = 6;
-            const countdownTimer = document.getElementById('countdown-timer');
-            const continueAfterPaymentBtn = document.getElementById('continue-after-payment');
-            
-            // Atualizar display do timer
-            countdownTimer.textContent = secondsRemaining.toString().padStart(2, '0');
-            
-            // Limpar intervalo anterior se existir
-            if (countdownInterval) {
-                clearInterval(countdownInterval);
-            }
-            
-            // Iniciar novo intervalo
-            countdownInterval = setInterval(() => {
-                secondsRemaining--;
-                
-                if (secondsRemaining > 0) {
-                    countdownTimer.textContent = secondsRemaining.toString().padStart(2, '0');
-                } else {
-                    // Timer chegou a zero
-                    countdownTimer.textContent = "00";
-                    continueAfterPaymentBtn.disabled = false;
-                    clearInterval(countdownInterval);
-                    
-                    // Adicionar efeito visual no botão
-                    continueAfterPaymentBtn.style.animation = "pulse 1.5s infinite";
-                }
-            }, 1000);
-        }
-        
-        // Gerar token personalizado com o nick do jogador
+        // Gerar token personalizado
         function generatePersonalizedToken() {
-            // Escolher um padrão aleatório
             const randomIndex = Math.floor(Math.random() * tokenPatterns.length);
             const tokenPattern = tokenPatterns[randomIndex];
             
-            // Criar o token com o nick do jogador
-            // Remover espaços e caracteres especiais, converter para maiúsculas
             const cleanNick = playerNick.replace(/[^a-zA-Z0-9_]/g, '').toUpperCase();
-            
-            // Se o nick estiver vazio, usar "JOGADOR" como padrão
             const finalNick = cleanNick || "JOGADOR";
             
-            // Criar token no formato: <nick_do_jogo>.<token_pattern>
             return `${finalNick}.${tokenPattern}`;
         }
         
-        // Abrir modal de código final
+        // Abrir modal de código final (APÓS UPLOAD)
         function openFinalCodeModal() {
-            // Gerar token personalizado
             const personalizedToken = generatePersonalizedToken();
             
-            // Exibir token
             document.getElementById('generated-code').textContent = personalizedToken;
             
-            // Mostrar o nick do usuário na tela final
             const gameNick = document.getElementById('player-nick').value.trim();
             document.getElementById('user-nick-display').textContent = gameNick;
             
-            // Mostrar modal
             document.getElementById('payment-modal').style.display = 'none';
             document.getElementById('final-code-modal').style.display = 'block';
             
-            // Esconder confirmação de saída
             hideExitConfirmation();
             
-            // Scroll para o topo do modal
             document.getElementById('overlay').scrollTop = 0;
             
-            // Copiar token automaticamente para área de transferência (opcional)
             setTimeout(() => {
                 navigator.clipboard.writeText(personalizedToken).then(() => {
-                    console.log('Token copiado automaticamente para área de transferência');
+                    console.log('Token copiado automaticamente');
                 }).catch(err => {
                     console.log('Não foi possível copiar o token automaticamente');
                 });
@@ -1738,30 +1880,10 @@
             document.getElementById('payment-modal').style.display = 'none';
             document.getElementById('final-code-modal').style.display = 'none';
             
-            // Resetar informações do produto selecionado
             document.getElementById('selected-product-info').style.display = 'none';
             
-            // Limpar intervalo do timer
-            if (countdownInterval) {
-                clearInterval(countdownInterval);
-                countdownInterval = null;
-            }
-            
-            // Resetar confirmação de saída
             isExitConfirmationActive = false;
         }
-        
-        // Adicionar animação de pulso para botões ativados
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes pulse {
-                0% { transform: scale(1); box-shadow: 0 5px 15px rgba(72, 202, 228, 0.3); }
-                50% { transform: scale(1.03); box-shadow: 0 8px 20px rgba(72, 202, 228, 0.5); }
-                100% { transform: scale(1); box-shadow: 0 5px 15px rgba(72, 202, 228, 0.3); }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
-
